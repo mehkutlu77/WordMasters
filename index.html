@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>WORD MASTER - v15.1 Flashcard Fix</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* 1. GENEL TASARIM */
+:root {
+    --primary: #3B82F6;
+    --primary-light: #EFF6FF;
+    --success: #22C55E;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --text-main: #1F2937;
+    --text-light: #6B7280;
+    --bg-app: #F3F4F6;
+    --card-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0; padding: 0;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    display: flex; justify-content: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%; max-width: 420px;
+    background: #fff;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column;
+}
+
+/* HEADER */
+.header {
+    padding: 15px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; position: sticky; top: 0; z-index: 100;
+}
+
+.lang-btn {
+    background: #E0F2FE; border: 2px solid #7DD3FC;
+    color: #0284C7; font-weight: 800; font-size: 0.9rem;
+    padding: 8px 12px; border-radius: 12px; cursor: pointer; transition: 0.2s;
+}
+.lang-btn:active { transform: scale(0.95); }
+
+/* WORD ART */
+.word-art-title {
+    font-family: 'Russo One', sans-serif;
+    font-size: 2rem; text-align: center;
+    background: linear-gradient(45deg, #2196F3, #00BCD4);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.1); margin: 10px 0 20px;
+}
+
+.mini-word-art {
+    font-family: 'Russo One', sans-serif; font-size: 1.4rem;
+    background: linear-gradient(45deg, #1565C0, #42A5F5);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1); text-transform: uppercase;
+}
+
+/* BUTONLAR */
+.btn-back {
+    background: #EFF6FF; border: 2px solid #BFDBFE; color: #2563EB;
+    width: 45px; height: 45px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 3px 0 #BFDBFE; transition: transform 0.1s;
+    font-size: 1.2rem; margin: 0; padding: 0;
+}
+.btn-back:active { transform: translateY(3px); box-shadow: none; }
+.icon-back { width: 24px; height: 24px; fill: currentColor; stroke: currentColor; stroke-width: 2; }
+
+.btn-settings {
+    background: #F3F4F6; border: 2px solid #E5E7EB; color: #4B5563;
+    width: 45px; height: 45px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.5rem; transition: 0.1s;
+}
+.btn-settings:active { transform: scale(0.95); background: #E5E7EB; }
+
+button {
+    border: none; border-radius: 15px; padding: 16px;
+    font-weight: 700; cursor: pointer; transition: 0.1s; width: 100%; margin: 8px 0;
+    text-transform: uppercase; font-family: "Poppins", sans-serif;
+    color: white; box-shadow: 0 5px 0 rgba(0,0,0,0.15); font-size: 1rem;
+}
+button:active { transform: translateY(4px); box-shadow: none; }
+
+.btn-green { background: #4CAF50; box-shadow: 0 5px 0 #388E3C; }
+.btn-red { background: #F44336; box-shadow: 0 5px 0 #D32F2F; }
+.btn-grey { background: #78909C; box-shadow: 0 5px 0 #546E7A; }
+.btn-purple { background: #9C27B0; box-shadow: 0 5px 0 #7B1FA2; }
+.btn-orange { background: #FF9800; box-shadow: 0 5px 0 #F57C00; }
+.btn-blue { background: #2196F3; box-shadow: 0 5px 0 #1976D2; }
+.btn-cyan { background: #00BCD4; box-shadow: 0 5px 0 #0097A7; }
+
+.content { flex: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+
+/* KARTLAR (MENÜ) */
+.card-menu {
+    background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 12px;
+    border: 1px solid #E5E7EB; box-shadow: var(--card-shadow);
+    cursor: pointer; transition: transform 0.1s; display: flex; align-items: center; gap: 15px;
+}
+.card-menu:active { transform: scale(0.98); border-color: var(--primary); }
+.menu-icon { font-size: 1.8rem; }
+.menu-text h3 { margin: 0; font-size: 1.1rem; color: var(--text-main); }
+.menu-text p { margin: 2px 0 0; font-size: 0.85rem; color: #6B7280; }
+
+.streak-box {
+    background: white; border: 2px solid #F9A8D4; border-radius: 16px;
+    padding: 15px; text-align: center; margin-bottom: 20px;
+    box-shadow: 0 4px 0 #F9A8D4;
+}
+.streak-count { font-size: 1.8rem; font-weight: 800; color: #DB2777; }
+
+/* SEVİYE BUTONLARI */
+.grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.level-btn {
+    border: none; border-radius: 16px; padding: 20px 10px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.2rem;
+    color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.2); text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.level-btn small { font-size: 0.7rem; font-weight: 600; margin-top: 5px; opacity: 0.9; }
+.level-btn:active { transform: translateY(5px); box-shadow: none; }
+
+.lvl-blue { background: linear-gradient(135deg, #42A5F5, #1E88E5); }
+.lvl-orange { background: linear-gradient(135deg, #FFA726, #F57C00); }
+.lvl-green { background: linear-gradient(135deg, #66BB6A, #43A047); }
+.lvl-pink { background: linear-gradient(135deg, #EC407A, #D81B60); }
+.lvl-purple { background: linear-gradient(135deg, #AB47BC, #8E24AA); }
+.lvl-cyan { background: linear-gradient(135deg, #26C6DA, #00ACC1); }
+.lvl-red { background: linear-gradient(135deg, #EF5350, #E53935); }
+
+/* EŞLEŞTİRME */
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.match-card {
+    border-radius: 12px; padding: 15px 5px; text-align: center; font-weight: 700; color: white;
+    cursor: pointer; font-size: 0.95rem; min-height: 80px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2); border: 2px solid white; word-break: break-word; line-height: 1.2;
+}
+.match-card:active { transform: translateY(4px); box-shadow: none; }
+.match-card.matched { visibility: hidden; }
+.match-card.selected { border-color: #333; transform: scale(0.95); }
+.mc-1 { background: #FF7043; } .mc-2 { background: #42A5F5; } .mc-3 { background: #66BB6A; }
+.mc-4 { background: #AB47BC; } .mc-5 { background: #EF5350; } .mc-6 { background: #26C6DA; }
+
+/* -------------------------------------------------------
+   DÜZELTİLEN FLASHCARD CSS (HOPARLÖR KÜÇÜK, YAZI BÜYÜK)
+   -------------------------------------------------------
+*/
+.flashcard-wrapper { perspective: 1000px; width: 100%; height: 380px; margin: 20px 0; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.fc-face {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 24px; background: #fff; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid #E5E7EB;
+    padding: 25px; box-sizing: border-box; 
+    display: flex; flex-direction: column;
+}
+
+/* Ön Yüz: Kelime Ortada ve Büyük */
+.fc-front { justify-content: center; align-items: center; }
+.fc-main-word { font-size: 2.6rem; font-weight: 800; color: #1F2937; text-align: center; line-height: 1.2; }
+
+/* Arka Yüz: Düzenli Header ve İçerik */
+.fc-back { transform: rotateY(180deg); align-items: flex-start; text-align: left; }
+
+.fc-header {
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between; /* Kelime solda, İkon sağda */
+    align-items: center; 
+    margin-bottom: 10px;
+    border-bottom: 2px solid #F3F4F6;
+    padding-bottom: 10px;
+}
+
+.fc-word-sm { 
+    font-size: 1.6rem; 
+    font-weight: 800; 
+    color: #3B82F6; 
+    flex: 1; /* Alanı kapla */
+}
+
+/* Hoparlör Butonu (Küçük ve Sağda) */
+.fc-audio-btn {
+    background: #EFF6FF;
+    border: none;
+    width: 40px; 
+    height: 40px; 
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #3B82F6;
+    flex-shrink: 0; /* Küçülmesini engelle */
+}
+.fc-audio-btn:active { background: #DBEAFE; }
+
+.fc-meaning { 
+    font-size: 1.4rem; 
+    font-weight: 700; 
+    color: #1F2937; 
+    margin-bottom: 20px; 
+    margin-top: 5px;
+}
+
+.fc-examples { 
+    background: #F9FAFB; 
+    padding: 15px; 
+    border-radius: 12px; 
+    width: 100%; 
+    border-left: 5px solid #3B82F6; 
+    margin-top: auto; /* Alta it */
+    margin-bottom: 10px;
+}
+.fc-ex-text { font-style: italic; color: #4B5563; font-size: 1rem; line-height: 1.4; }
+
+/* Alt Kontroller */
+.fc-controls { display: flex; gap: 15px; margin-top: auto; padding-top: 10px; }
+.control-btn {
+    flex: 1; padding: 16px; border-radius: 16px; border: none; font-weight: 800;
+    color: white; cursor: pointer; box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.control-btn:active { transform: translateY(4px); box-shadow: none; }
+.btn-know { background: #22C55E; box-shadow: 0 4px 0 #15803D; }
+.btn-forgot { background: #EF4444; box-shadow: 0 4px 0 #B91C1C; }
+
+/* QUIZ */
+.quiz-question {
+    background: #3B82F6; color: white; padding: 30px 20px; border-radius: 16px;
+    text-align: center; font-size: 1.5rem; font-weight: 800; box-shadow: 0 6px 0 #1D4ED8; margin-bottom: 20px;
+}
+.quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.quiz-opt {
+    background: white; border: 2px solid #E5E7EB; border-radius: 12px;
+    padding: 20px 5px; text-align: center; font-weight: 700; cursor: pointer;
+    box-shadow: 0 4px 0 #E5E7EB; transition: 0.1s; color: #1F2937;
+}
+.quiz-opt:active { transform: translateY(4px); box-shadow: none; }
+.quiz-opt.correct { background: #22C55E; color: white; border-color: #22C55E; }
+.quiz-opt.wrong { background: #EF4444; color: white; border-color: #EF4444; }
+
+/* INPUTLAR */
+.input-field { width: 100%; padding: 15px; border: 2px solid #E5E7EB; border-radius: 12px; margin-bottom: 12px; box-sizing: border-box; font-family: inherit; }
+.add-option-btn { padding: 15px; border: 2px solid #E5E7EB; border-radius: 12px; background: white; font-weight: 700; color: #666; cursor: pointer; flex: 1; text-align: center; }
+.add-option-btn.active { border-color: #3B82F6; color: #3B82F6; background: #EFF6FF; }
+
+/* EKRANLAR */
+.screen { display: none; height: 100%; flex-direction: column; }
+.screen.active { display: flex; }
+.stats-summary { display: flex; justify-content: space-around; background: white; padding: 15px; border-radius: 12px; margin-top: 20px; border: 1px solid #E5E7EB; }
+.stat-val { display: block; font-weight: 800; font-size: 1.2rem; }
+
+/* SONUÇ */
+.result-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 4px solid white; border-radius: 20px; padding: 40px 20px;
+    text-align: center; margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
+    transform: scale(1); animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.result-score { font-family: 'Russo One', sans-serif; font-size: 3rem; color: white; text-shadow: 4px 4px 0px rgba(0,0,0,0.2); margin: 0; }
+.result-label { color: rgba(255,255,255,0.9); font-size: 1.2rem; font-weight: 700; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px; }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="screen active" id="homeScreen">
+        <div class="header">
+            <button class="lang-btn" onclick="toggleLanguage()">TR / EN</button>
+            <button class="btn-settings" onclick="show('settingsScreen')">⚙️</button>
+        </div>
+        
+        <div class="content">
+            <h1 class="word-art-title">WORD MASTER</h1>
+            <div class="streak-box">
+                <span style="font-size:2rem; display:block;">🎯🔥</span>
+                <div class="streak-count" id="streakDisplay">1 Günlük Seri!</div>
+            </div>
+            <h3 data-lang="work_areas" style="color:#6B7280; font-size:0.9rem; margin-bottom:10px;">ÇALIŞMA ALANLARI</h3>
+            <div class="card-menu" onclick="selectCategory('KELİMELER')">
+                <span class="menu-icon">📘</span>
+                <div class="menu-text"><h3 data-lang="words">Kelimeler</h3><p data-lang="words_desc">Kelime hazineni geliştir</p></div>
+            </div>
+            <div class="card-menu" onclick="selectCategory('KALIPLAR')">
+                <span class="menu-icon">🗣️</span>
+                <div class="menu-text"><h3 data-lang="phrases">Kalıplar</h3><p data-lang="phrases_desc">Günlük konuşma yapıları</p></div>
+            </div>
+            <div class="card-menu" onclick="selectCategory('DEYİMLER')">
+                <span class="menu-icon">🔥</span>
+                <div class="menu-text"><h3 data-lang="idioms">Deyimler</h3><p data-lang="idioms_desc">İleri seviye ifadeler</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="settingsScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('homeScreen')">
+                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <span class="mini-word-art" data-lang="settings">AYARLAR</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <div class="card-menu" onclick="show('addScreen')">
+                <span class="menu-icon">📥</span>
+                <div class="menu-text"><h3 data-lang="add_data">Veri Ekle</h3><p data-lang="add_desc">Tekli veya Toplu veri girişi</p></div>
+            </div>
+            <div class="card-menu" onclick="resetAllData()" style="border-color:#EF4444;">
+                <span class="menu-icon">⚠️</span>
+                <div class="menu-text"><h3 style="color:#EF4444;" data-lang="reset">Sıfırla</h3><p data-lang="reset_desc">Tüm ilerlemeyi sil</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="addScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('settingsScreen')">
+                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <span class="mini-word-art" data-lang="add_data">Veri Ekle</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+                <button id="btnSingle" class="add-option-btn active" onclick="setAddMode('single')" data-lang="add_single">Tekli Ekle</button>
+                <button id="btnBulk" class="add-option-btn" onclick="setAddMode('bulk')" data-lang="add_bulk">Toplu Ekle</button>
+            </div>
+
+            <div id="singleMode">
+                <select id="addCat" class="input-field">
+                    <option value="KELİMELER" data-lang="words">Kelimeler</option>
+                    <option value="KALIPLAR" data-lang="phrases">Kalıplar</option>
+                    <option value="DEYİMLER" data-lang="idioms">Deyimler</option>
+                </select>
+                <select id="addLvl" class="input-field"><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select>
+                <input id="addEng" class="input-field" placeholder="İngilizce (Örn: Apple)">
+                <input id="addTr" class="input-field" placeholder="Türkçe (Örn: Elma)">
+                <input id="addEx" class="input-field" placeholder="Örnek cümle...">
+                <button class="control-btn btn-know" onclick="addSingle()" data-lang="save">KAYDET</button>
+            </div>
+            
+            <div id="bulkMode" style="display:none;">
+                <p style="color:#666; font-size:0.9rem;" data-lang="bulk_format">Format: Seviye (Enter) kelime : anlam</p>
+                <select id="bulkCat" class="input-field">
+                    <option value="KELİMELER" data-lang="words">Kelimeler</option>
+                    <option value="KALIPLAR" data-lang="phrases">Kalıplar</option>
+                    <option value="DEYİMLER" data-lang="idioms">Deyimler</option>
+                </select>
+                <textarea id="bulkInput" class="input-field" style="height:200px;" placeholder="A1
+apple : elma
+book : kitap"></textarea>
+                <button class="control-btn btn-know" onclick="addBulk()" data-lang="bulk_save">TOPLU KAYDET</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="levelScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('homeScreen')">
+                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <span class="mini-word-art" id="catTitle">KATEGORİ</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <div id="levelsGrid" class="grid-menu"></div>
+        </div>
+    </div>
+
+    <div class="screen" id="dashboardScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('levelScreen')">
+                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <span class="mini-word-art" id="dashTitle">Seviye</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <h3 class="mini-word-art" style="font-size:1rem; color:#666; margin-top:0;" data-lang="games">Oyunlar</h3>
+            <div class="card-menu" onclick="initGame('quiz')">
+                <span class="menu-icon">📝</span>
+                <div class="menu-text"><h3 data-lang="quiz_game">Test (Quiz)</h3><p data-lang="quiz_desc">10 Soru</p></div>
+            </div>
+            <div class="card-menu" onclick="initGame('match')">
+                <span class="menu-icon">🧩</span>
+                <div class="menu-text"><h3 data-lang="match_game">Eşleştirme</h3><p data-lang="match_desc">5 Çift</p></div>
+            </div>
+            <div class="card-menu" onclick="initGame('flash')">
+                <span class="menu-icon">🃏</span>
+                <div class="menu-text"><h3 data-lang="flash_game">Kartlar</h3><p data-lang="flash_desc">10 Kart</p></div>
+            </div>
+
+            <h3 class="mini-word-art" style="font-size:1rem; color:#666; margin-top:20px;" data-lang="progress">Gelişim</h3>
+            <div class="card-menu" onclick="show('srsScreen')">
+                <span class="menu-icon">🧠</span>
+                <div class="menu-text"><h3 data-lang="smart_review">Akıllı Tekrar</h3><p data-lang="srs_desc">SRS ve Bilinmeyenler</p></div>
+            </div>
+            <div class="card-menu" onclick="showChartScreen()">
+                <span class="menu-icon">📊</span>
+                <div class="menu-text"><h3 data-lang="stats">İstatistikler</h3><p data-lang="stats_desc">Gelişim raporu</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="quizScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('dashboardScreen')">✕</button>
+            <span class="mini-word-art" data-lang="quiz_game">Test</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content" style="display:flex; flex-direction:column; justify-content:center;">
+            <div style="text-align:center; margin-bottom:10px; color:#666; font-weight:700;">
+                <span data-lang="question">Soru</span>: <span id="quizCounter">1</span> / 10
+            </div>
+            <div class="quiz-question" id="qText">WORD</div>
+            <div class="quiz-grid" id="qOptions"></div>
+        </div>
+    </div>
+
+    <div class="screen" id="matchScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('dashboardScreen')">✕</button>
+            <span class="mini-word-art" data-lang="match_game">Eşleştirme</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <div class="match-grid" id="matchGrid"></div>
+        </div>
+    </div>
+
+    <div class="screen" id="flashScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('dashboardScreen')">✕</button>
+            <span class="mini-word-art" data-lang="flash_game">Kartlar</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content" style="display:flex; flex-direction:column;">
+            <div style="text-align:center; margin-bottom:10px; color:#666; font-weight:700;">
+                <span data-lang="card">Kart</span>: <span id="fcCounter">1</span> / 10
+            </div>
+            
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="fcCard" onclick="flipCard()">
+                    <div class="fc-face fc-front">
+                        <div class="fc-main-word" id="fcFrontText">Word</div>
+                        <div style="margin-top:20px; color:#9CA3AF; font-size:0.9rem;" data-lang="tap_flip">👆 Çevirmek için dokun</div>
+                    </div>
+                    <div class="fc-face fc-back">
+                        <div class="fc-header">
+                            <div class="fc-word-sm" id="fcBackText">Word</div>
+                            <button class="fc-audio-btn" onclick="event.stopPropagation(); TTS(currentWord.eng)">🔊</button>
+                        </div>
+                        
+                        <div class="fc-meaning" id="fcMeaning">Anlam</div>
+                        
+                        <div class="fc-examples">
+                            <div class="fc-ex-text" id="fcEx">Example...</div>
+                        </div>
+                        
+                        <div style="margin-top:auto; font-size:0.8rem; color:#999;" id="fcLevel">B2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fc-controls" id="fcControls">
+                <button class="control-btn btn-forgot" onclick="nextCard(false)">✕ <span data-lang="dont_know">Bilmiyorum</span></button>
+                <button class="control-btn btn-know" onclick="nextCard(true)">✓ <span data-lang="know">Biliyorum</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="resultScreen">
+        <div class="content" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <div class="result-box">
+                <div class="result-score" id="resultScore">%100</div>
+                <div class="result-label" data-lang="success_rate">BAŞARI ORANI</div>
+            </div>
+            <p id="resultMsg" style="color:#666; font-size:1.1rem; margin-bottom:30px; text-align:center;"></p>
+            <button class="btn-green" onclick="show('dashboardScreen')" data-lang="continue">DEVAM ET</button>
+        </div>
+    </div>
+
+    <div class="screen" id="srsScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('dashboardScreen')">
+                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <span class="mini-word-art" data-lang="smart_review">Akıllı Tekrar</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <div class="card-menu" onclick="startUnknownGame()">
+                <span class="menu-icon">🆕</span>
+                <div class="menu-text"><h3 data-lang="study_unknown">Bilinmeyenleri Çalış</h3><p data-lang="study_unknown_desc">Henüz öğrenilmeyenler</p></div>
+            </div>
+            <div class="card-menu" onclick="startSRSGame()">
+                <span class="menu-icon">📅</span>
+                <div class="menu-text"><h3 data-lang="daily_review">Günlük Tekrar (SRS)</h3><p data-lang="daily_review_desc">Unutmak üzere oldukların</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="chartScreen">
+        <div class="header">
+            <button class="btn-back" onclick="show('dashboardScreen')">
+                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <span class="mini-word-art" data-lang="stats">İstatistik</span>
+            <div style="width:45px;"></div>
+        </div>
+        <div class="content">
+            <canvas id="srsChart"></canvas>
+            <div class="stats-summary">
+                <div class="stat-item"><span class="stat-val" id="statTotal">0</span><span class="stat-lbl" data-lang="total">Toplam</span></div>
+                <div class="stat-item"><span class="stat-val" style="color:#22C55E;" id="statLearned">0</span><span class="stat-lbl" data-lang="learned">Öğrenilen</span></div>
+                <div class="stat-item"><span class="stat-val" style="color:#EF4444;" id="statUnknown">0</span><span class="stat-lbl" data-lang="unknown">Bilinmeyen</span></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* === DİL YÖNETİMİ === */
+let currentLang = localStorage.getItem("WM_LANG") || "tr";
+const LANG = {
+    tr: {
+        work_areas: "ÇALIŞMA ALANLARI", words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", settings: "AYARLAR", add_data: "Veri Ekle", add_desc: "Tekli veya Toplu veri girişi", reset: "Sıfırla", reset_desc: "Tüm ilerlemeyi sil", add_single: "Tekli Ekle", add_bulk: "Toplu Ekle", save: "KAYDET", bulk_save: "TOPLU KAYDET", bulk_format: "Format: Seviye (Enter) kelime : anlam", games: "Oyunlar", quiz_game: "Test (Quiz)", quiz_desc: "10 Soru", match_game: "Eşleştirme", match_desc: "5 Çift", flash_game: "Kartlar", flash_desc: "10 Kart", progress: "Gelişim", smart_review: "Akıllı Tekrar", srs_desc: "SRS ve Bilinmeyenler", stats: "İstatistikler", stats_desc: "Gelişim raporu", question: "Soru", card: "Kart", tap_flip: "👆 Çevirmek için dokun", know: "Biliyorum", dont_know: "Bilmiyorum", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", study_unknown_desc: "Henüz öğrenilmeyenler", daily_review: "Günlük Tekrar (SRS)", daily_review_desc: "Unutmak üzere oldukların", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen", msg_perfect: "Mükemmel! Hepsini bildin. 🎉", msg_good: "Çok iyisin! 💪", msg_avg: "Güzel, ama tekrar yapmalısın. 👍", msg_bad: "Daha çok çalışmalısın. 📚", streak: "Günlük Seri!", alert_min: "Bu mod için en az {n} kelime gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} kelime eklendi!", alert_reset: "Her şey silinecek?", alert_no_unknown: "Bilinmeyen kelime kalmadı!", alert_no_srs: "Tekrar zamanı gelen yok."
+    },
+    en: {
+        work_areas: "STUDY AREAS", words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily speech patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", settings: "SETTINGS", add_data: "Add Data", add_desc: "Single or Bulk entry", reset: "Reset", reset_desc: "Delete all progress", add_single: "Single Add", add_bulk: "Bulk Add", save: "SAVE", bulk_save: "BULK SAVE", bulk_format: "Format: Level (Enter) word : meaning", games: "Games", quiz_game: "Quiz", quiz_desc: "10 Questions", match_game: "Match", match_desc: "5 Pairs", flash_game: "Cards", flash_desc: "10 Cards", progress: "Progress", smart_review: "Smart Review", srs_desc: "SRS & Unknowns", stats: "Statistics", stats_desc: "Progress report", question: "Question", card: "Card", tap_flip: "👆 Tap to flip", know: "I Know", dont_know: "Don't Know", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", study_unknown_desc: "Not learned yet", daily_review: "Daily Review (SRS)", daily_review_desc: "Due for review", total: "Total", learned: "Learned", unknown: "Unknown", msg_perfect: "Perfect! You knew them all. 🎉", msg_good: "Great job! 💪", msg_avg: "Good, but needs review. 👍", msg_bad: "Keep practicing. 📚", streak: "Day Streak!", alert_min: "Need at least {n} words.", alert_added: "Added!", alert_bulk_added: "{n} words added!", alert_reset: "Delete everything?", alert_no_unknown: "No unknown words left!", alert_no_srs: "No reviews due."
+    }
+};
+
+function toggleLanguage() {
+    currentLang = currentLang === "tr" ? "en" : "tr";
+    localStorage.setItem("WM_LANG", currentLang);
+    applyLanguage();
+}
+
+function applyLanguage() {
+    document.querySelectorAll("[data-lang]").forEach(el => {
+        let key = el.getAttribute("data-lang");
+        if(LANG[currentLang][key]) el.innerText = LANG[currentLang][key];
+    });
+    let ph = currentLang === "tr" ? "İngilizce" : "English";
+    if(document.getElementById("addEng")) document.getElementById("addEng").placeholder = ph;
+    ph = currentLang === "tr" ? "Türkçe" : "Turkish";
+    if(document.getElementById("addTr")) document.getElementById("addTr").placeholder = ph;
+    checkStreak();
+}
+
+/* === SİSTEM & VERİ === */
+const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+let DATA = {}, SRS_DATA = {};
+let activeCat = "", activeLvl = "";
+let gamePool = [], currentIndex = 0, currentWord = null;
+let matchSelected = null, chartInstance = null;
+const ONE_DAY = 24 * 60 * 60 * 1000;
+const SRS_INTERVALS = [ONE_DAY, 3*ONE_DAY, 7*ONE_DAY, 15*ONE_DAY, 30*ONE_DAY];
+let sessionCorrect = 0, sessionTotal = 0;
+
+window.onload = () => {
+    initDB();
+    checkStreak();
+    applyLanguage();
+    if(localStorage.getItem("INIT") === "1") show('homeScreen');
+};
+
+function initDB() {
+    let stored = localStorage.getItem("WM_DB_V14");
+    DATA = stored ? JSON.parse(stored) : { "KELİMELER":{}, "KALIPLAR":{}, "DEYİMLER":{} };
+    for(let cat in DATA) { LEVELS.forEach(l => { if(!DATA[cat][l]) DATA[cat][l] = []; }); }
+    SRS_DATA = JSON.parse(localStorage.getItem("WM_SRS_V14") || "{}");
+}
+
+function saveDB() {
+    localStorage.setItem("WM_DB_V14", JSON.stringify(DATA));
+    localStorage.setItem("WM_SRS_V14", JSON.stringify(SRS_DATA));
+    localStorage.setItem("INIT", "1");
+}
+
+function checkStreak() {
+    let last = localStorage.getItem("LAST_VISIT"), streak = parseInt(localStorage.getItem("STREAK")||0);
+    let today = new Date().toDateString();
+    if(last !== today) {
+        let yest = new Date(); yest.setDate(yest.getDate()-1);
+        streak = (last === yest.toDateString()) ? streak + 1 : 1;
+        localStorage.setItem("LAST_VISIT", today);
+        localStorage.setItem("STREAK", streak);
+    }
+    document.getElementById("streakDisplay").innerText = streak + " " + LANG[currentLang].streak;
+}
+
+function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function selectCategory(cat) {
+    activeCat = cat;
+    let grid = document.getElementById("levelsGrid");
+    grid.innerHTML = "";
+    const lvlClasses = ["lvl-blue", "lvl-orange", "lvl-green", "lvl-pink", "lvl-purple", "lvl-cyan"];
+    LEVELS.forEach((l, i) => {
+        let count = DATA[cat][l].length;
+        grid.innerHTML += `
+            <button class="level-btn ${lvlClasses[i]}" onclick="selectLevel('${l}')">
+                ${l} <small>(${count})</small>
+            </button>`;
+    });
+    document.getElementById("catTitle").innerText = cat;
+    show('levelScreen');
+}
+
+function selectLevel(l) {
+    activeLvl = l;
+    document.getElementById("dashTitle").innerText = l;
+    show('dashboardScreen');
+}
+
+function initGame(mode) {
+    let pool = DATA[activeCat][activeLvl];
+    let minReq = (mode === 'match') ? 5 : 4; 
+    if(!pool || pool.length < minReq) return alert(LANG[currentLang].alert_min.replace("{n}", minReq));
+    let count = (mode === 'match') ? 5 : 10;
+    gamePool = [...pool].sort(() => 0.5 - Math.random()).slice(0, count);
+    currentIndex = 0; sessionCorrect = 0; sessionTotal = gamePool.length;
+    if(mode === 'quiz') { show('quizScreen'); renderQuiz(); }
+    else if(mode === 'match') { show('matchScreen'); renderMatch(); }
+    else { show('flashScreen'); renderFlash(); }
+}
+
+function renderFlash() {
+    if(currentIndex >= gamePool.length) return finishGameWithResult();
+    currentWord = gamePool[currentIndex];
+    document.getElementById("fcCounter").innerText = (currentIndex + 1);
+    let card = document.getElementById("fcCard"); card.classList.remove("flipped");
+    document.getElementById("fcFrontText").innerText = currentWord.eng;
+    document.getElementById("fcBackText").innerText = currentWord.eng;
+    document.getElementById("fcMeaning").innerText = currentWord.tr;
+    document.getElementById("fcEx").innerText = currentWord.ex || "";
+    document.getElementById("fcLevel").innerText = activeLvl;
+    TTS(currentWord.eng);
+}
+function flipCard() { document.getElementById("fcCard").classList.toggle("flipped"); }
+function nextCard(known) {
+    if(known) sessionCorrect++;
+    updateSRS(currentWord, known);
+    currentIndex++; renderFlash();
+}
+
+function renderQuiz() {
+    if(currentIndex >= gamePool.length) return finishGameWithResult();
+    currentWord = gamePool[currentIndex];
+    document.getElementById("quizCounter").innerText = (currentIndex + 1);
+    document.getElementById("qText").innerText = currentWord.eng;
+    TTS(currentWord.eng);
+    let opts = [currentWord.tr], all = DATA[activeCat][activeLvl].map(w => w.tr);
+    while(opts.length < 4) { let r = all[Math.floor(Math.random()*all.length)]; if(!opts.includes(r)) opts.push(r); }
+    opts.sort(() => 0.5 - Math.random());
+    let html = "";
+    opts.forEach(opt => { html += `<div class="quiz-opt" onclick="checkQuiz(this, '${opt}')">${opt}</div>`; });
+    document.getElementById("qOptions").innerHTML = html;
+}
+function checkQuiz(btn, ans) {
+    if(ans === currentWord.tr) {
+        btn.classList.add("correct"); sessionCorrect++; updateSRS(currentWord, true);
+        setTimeout(() => { currentIndex++; renderQuiz(); }, 800);
+    } else {
+        btn.classList.add("wrong");
+        document.querySelectorAll('.quiz-opt').forEach(b => { if(b.innerText === currentWord.tr) b.classList.add("correct"); });
+        updateSRS(currentWord, false);
+        setTimeout(() => { currentIndex++; renderQuiz(); }, 1500);
+    }
+}
+
+function renderMatch() {
+    let items = [];
+    gamePool.forEach(w => { items.push({ id: w.eng, text: w.eng }); items.push({ id: w.eng, text: w.tr }); });
+    items.sort(() => 0.5 - Math.random());
+    let grid = document.getElementById("matchGrid"); grid.innerHTML = "";
+    const colors = ["mc-1", "mc-2", "mc-3", "mc-4", "mc-5"];
+    items.forEach((item, i) => {
+        let div = document.createElement("div");
+        let randColor = colors[Math.floor(Math.random() * colors.length)];
+        div.className = "match-card " + randColor;
+        div.innerText = item.text;
+        div.dataset.id = item.id;
+        div.onclick = () => handleMatch(div);
+        grid.appendChild(div);
+    });
+}
+function handleMatch(el) {
+    if(el.classList.contains("matched") || el.classList.contains("selected")) return;
+    el.classList.add("selected");
+    if(!matchSelected) { matchSelected = el; } 
+    else {
+        if(matchSelected.dataset.id === el.dataset.id) {
+            matchSelected.classList.remove("selected"); el.classList.remove("selected");
+            matchSelected.classList.add("matched"); el.classList.add("matched");
+            matchSelected = null; sessionCorrect++;
+            if(document.querySelectorAll('.match-card:not(.matched)').length === 0) finishGameWithResult();
+        } else {
+            setTimeout(() => {
+                matchSelected.classList.remove("selected"); el.classList.remove("selected");
+                matchSelected = null;
+            }, 500);
+        }
+    }
+}
+
+function finishGameWithResult() {
+    let percentage = Math.round((sessionCorrect / sessionTotal) * 100);
+    let resultBox = document.querySelector('.result-box');
+    if(percentage >= 80) resultBox.style.background = "linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%)";
+    else if(percentage >= 50) resultBox.style.background = "linear-gradient(135deg, #FF9800 0%, #F57C00 100%)";
+    else resultBox.style.background = "linear-gradient(135deg, #EF4444 0%, #C62828 100%)";
+    document.getElementById("resultScore").innerText = `%${percentage}`;
+    let msg = "";
+    if(percentage === 100) msg = LANG[currentLang].msg_perfect;
+    else if(percentage >= 80) msg = LANG[currentLang].msg_good;
+    else if(percentage >= 50) msg = LANG[currentLang].msg_avg;
+    else msg = LANG[currentLang].msg_bad;
+    document.getElementById("resultMsg").innerText = msg;
+    show('resultScreen');
+}
+
+let isBulk = false;
+function setAddMode(mode) {
+    isBulk = (mode === 'bulk');
+    document.getElementById("btnSingle").className = isBulk ? "add-option-btn" : "add-option-btn active";
+    document.getElementById("btnBulk").className = isBulk ? "add-option-btn active" : "add-option-btn";
+    document.getElementById("singleMode").style.display = isBulk ? "none" : "block";
+    document.getElementById("bulkMode").style.display = isBulk ? "block" : "none";
+}
+function addSingle() {
+    let cat = document.getElementById("addCat").value, lvl = document.getElementById("addLvl").value;
+    let eng = document.getElementById("addEng").value.trim(), tr = document.getElementById("addTr").value.trim();
+    if(!eng || !tr) return alert("Eksik bilgi!");
+    DATA[cat][lvl].push({eng, tr, ex: document.getElementById("addEx").value.trim()});
+    SRS_DATA[eng] = { stage: 0, nextDate: 0 };
+    saveDB(); alert(LANG[currentLang].alert_added);
+    document.getElementById("addEng").value=""; document.getElementById("addTr").value=""; document.getElementById("addEx").value="";
+}
+function addBulk() {
+    let text = document.getElementById("bulkInput").value.trim();
+    if(!text) return;
+    let cat = document.getElementById("bulkCat").value, currentLvl = null, count = 0;
+    text.split("\n").forEach(l => {
+        l = l.trim();
+        if(LEVELS.includes(l)) currentLvl = l;
+        else if(currentLvl && l.includes(":")) {
+            let p = l.split(":");
+            if(p.length >= 2) {
+                DATA[cat][currentLvl].push({ eng: p[0].trim(), tr: p[1].trim(), ex: "" });
+                SRS_DATA[p[0].trim()] = { stage: 0, nextDate: 0 };
+                count++;
+            }
+        }
+    });
+    saveDB(); alert(LANG[currentLang].alert_bulk_added.replace("{n}", count)); document.getElementById("bulkInput").value="";
+}
+
+function updateSRS(w, c) {
+    if(!SRS_DATA[w.eng]) SRS_DATA[w.eng] = { stage: 0, nextDate: 0 };
+    if(c) {
+        let s = SRS_DATA[w.eng].stage;
+        SRS_DATA[w.eng].nextDate = Date.now() + (SRS_INTERVALS[s] || SRS_INTERVALS[4]);
+        if(s < 4) SRS_DATA[w.eng].stage++;
+    } else { SRS_DATA[w.eng].stage = 0; SRS_DATA[w.eng].nextDate = 0; }
+    saveDB();
+}
+function startUnknownGame() {
+    let pool = DATA[activeCat][activeLvl].filter(w => { let s = SRS_DATA[w.eng]; return !s || s.stage === 0; });
+    if(pool.length === 0) return alert(LANG[currentLang].alert_no_unknown);
+    gamePool = pool.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; 
+    sessionCorrect = 0; sessionTotal = gamePool.length;
+    show('flashScreen'); renderFlash();
+}
+function startSRSGame() {
+    let now = Date.now();
+    let pool = DATA[activeCat][activeLvl].filter(w => { let s = SRS_DATA[w.eng]; return s && s.stage > 0 && s.nextDate <= now; });
+    if(pool.length === 0) return alert(LANG[currentLang].alert_no_srs);
+    gamePool = pool.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; 
+    sessionCorrect = 0; sessionTotal = gamePool.length;
+    show('quizScreen'); renderQuiz();
+}
+function showChartScreen() {
+    show('chartScreen');
+    let ctx = document.getElementById("srsChart");
+    let stages = [0,0,0,0,0,0], pool = DATA[activeCat][activeLvl], total = pool.length, learned = 0;
+    pool.forEach(w => {
+        let s = SRS_DATA[w.eng] ? SRS_DATA[w.eng].stage : 0; stages[s]++;
+        if(s > 0) learned++;
+    });
+    document.getElementById("statTotal").innerText = total;
+    document.getElementById("statLearned").innerText = learned;
+    document.getElementById("statUnknown").innerText = total - learned;
+    if(chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['New', '1D', '3D', '7D', '15D', '30D'],
+            datasets: [{ label: 'Count', data: stages, backgroundColor: ['#EF4444', '#3B82F6', '#60A5FA', '#34D399', '#F59E0B', '#10B981'] }]
+        }
+    });
+}
+function TTS(t) { let u = new SpeechSynthesisUtterance(t); u.lang='en-US'; window.speechSynthesis.speak(u); }
+function resetAllData() { if(confirm(LANG[currentLang].alert_reset)) { localStorage.clear(); location.reload(); } }
+</script>
+</body>
+</html>
