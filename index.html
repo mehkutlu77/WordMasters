@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>WORD MASTER - v15.1 Flashcard Fix</title>
+<title>WORD MASTER - v16.0 File Upload</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -104,9 +104,18 @@ button:active { transform: translateY(4px); box-shadow: none; }
 .btn-blue { background: #2196F3; box-shadow: 0 5px 0 #1976D2; }
 .btn-cyan { background: #00BCD4; box-shadow: 0 5px 0 #0097A7; }
 
+/* DOSYA YÜKLEME BUTONU */
+.btn-file-upload {
+    background: white; border: 2px dashed #3B82F6; color: #3B82F6;
+    border-radius: 12px; padding: 15px; text-align: center;
+    cursor: pointer; width: 100%; margin-bottom: 15px; display: block;
+    font-weight: 700; transition: 0.2s;
+}
+.btn-file-upload:hover { background: #EFF6FF; }
+
 .content { flex: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
 
-/* KARTLAR (MENÜ) */
+/* KARTLAR */
 .card-menu {
     background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 12px;
     border: 1px solid #E5E7EB; box-shadow: var(--card-shadow);
@@ -157,10 +166,7 @@ button:active { transform: translateY(4px); box-shadow: none; }
 .mc-1 { background: #FF7043; } .mc-2 { background: #42A5F5; } .mc-3 { background: #66BB6A; }
 .mc-4 { background: #AB47BC; } .mc-5 { background: #EF5350; } .mc-6 { background: #26C6DA; }
 
-/* -------------------------------------------------------
-   DÜZELTİLEN FLASHCARD CSS (HOPARLÖR KÜÇÜK, YAZI BÜYÜK)
-   -------------------------------------------------------
-*/
+/* FLASHCARD (Düzeltilmiş Tasarım) */
 .flashcard-wrapper { perspective: 1000px; width: 100%; height: 380px; margin: 20px 0; }
 .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
 .flashcard.flipped { transform: rotateY(180deg); }
@@ -173,65 +179,25 @@ button:active { transform: translateY(4px); box-shadow: none; }
     display: flex; flex-direction: column;
 }
 
-/* Ön Yüz: Kelime Ortada ve Büyük */
 .fc-front { justify-content: center; align-items: center; }
 .fc-main-word { font-size: 2.6rem; font-weight: 800; color: #1F2937; text-align: center; line-height: 1.2; }
 
-/* Arka Yüz: Düzenli Header ve İçerik */
 .fc-back { transform: rotateY(180deg); align-items: flex-start; text-align: left; }
-
 .fc-header {
-    width: 100%; 
-    display: flex; 
-    justify-content: space-between; /* Kelime solda, İkon sağda */
-    align-items: center; 
-    margin-bottom: 10px;
-    border-bottom: 2px solid #F3F4F6;
-    padding-bottom: 10px;
+    width: 100%; display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 10px; border-bottom: 2px solid #F3F4F6; padding-bottom: 10px;
 }
-
-.fc-word-sm { 
-    font-size: 1.6rem; 
-    font-weight: 800; 
-    color: #3B82F6; 
-    flex: 1; /* Alanı kapla */
-}
-
-/* Hoparlör Butonu (Küçük ve Sağda) */
+.fc-word-sm { font-size: 1.6rem; font-weight: 800; color: #3B82F6; flex: 1; }
 .fc-audio-btn {
-    background: #EFF6FF;
-    border: none;
-    width: 40px; 
-    height: 40px; 
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #3B82F6;
-    flex-shrink: 0; /* Küçülmesini engelle */
+    background: #EFF6FF; border: none; width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    cursor: pointer; color: #3B82F6; flex-shrink: 0;
 }
 .fc-audio-btn:active { background: #DBEAFE; }
-
-.fc-meaning { 
-    font-size: 1.4rem; 
-    font-weight: 700; 
-    color: #1F2937; 
-    margin-bottom: 20px; 
-    margin-top: 5px;
-}
-
-.fc-examples { 
-    background: #F9FAFB; 
-    padding: 15px; 
-    border-radius: 12px; 
-    width: 100%; 
-    border-left: 5px solid #3B82F6; 
-    margin-top: auto; /* Alta it */
-    margin-bottom: 10px;
-}
+.fc-meaning { font-size: 1.4rem; font-weight: 700; color: #1F2937; margin-bottom: 20px; margin-top: 5px; }
+.fc-examples { background: #F9FAFB; padding: 15px; border-radius: 12px; width: 100%; border-left: 5px solid #3B82F6; margin-top: auto; margin-bottom: 10px; }
 .fc-ex-text { font-style: italic; color: #4B5563; font-size: 1rem; line-height: 1.4; }
 
-/* Alt Kontroller */
 .fc-controls { display: flex; gap: 15px; margin-top: auto; padding-top: 10px; }
 .control-btn {
     flex: 1; padding: 16px; border-radius: 16px; border: none; font-weight: 800;
@@ -368,6 +334,10 @@ button:active { transform: translateY(4px); box-shadow: none; }
                     <option value="KALIPLAR" data-lang="phrases">Kalıplar</option>
                     <option value="DEYİMLER" data-lang="idioms">Deyimler</option>
                 </select>
+                
+                <input type="file" id="fileInput" accept=".txt" style="display:none" onchange="loadFile()">
+                <button class="btn-file-upload" onclick="document.getElementById('fileInput').click()" data-lang="btn_upload">📁 TXT Dosyası Yükle</button>
+
                 <textarea id="bulkInput" class="input-field" style="height:200px;" placeholder="A1
 apple : elma
 book : kitap"></textarea>
@@ -547,10 +517,10 @@ book : kitap"></textarea>
 let currentLang = localStorage.getItem("WM_LANG") || "tr";
 const LANG = {
     tr: {
-        work_areas: "ÇALIŞMA ALANLARI", words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", settings: "AYARLAR", add_data: "Veri Ekle", add_desc: "Tekli veya Toplu veri girişi", reset: "Sıfırla", reset_desc: "Tüm ilerlemeyi sil", add_single: "Tekli Ekle", add_bulk: "Toplu Ekle", save: "KAYDET", bulk_save: "TOPLU KAYDET", bulk_format: "Format: Seviye (Enter) kelime : anlam", games: "Oyunlar", quiz_game: "Test (Quiz)", quiz_desc: "10 Soru", match_game: "Eşleştirme", match_desc: "5 Çift", flash_game: "Kartlar", flash_desc: "10 Kart", progress: "Gelişim", smart_review: "Akıllı Tekrar", srs_desc: "SRS ve Bilinmeyenler", stats: "İstatistikler", stats_desc: "Gelişim raporu", question: "Soru", card: "Kart", tap_flip: "👆 Çevirmek için dokun", know: "Biliyorum", dont_know: "Bilmiyorum", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", study_unknown_desc: "Henüz öğrenilmeyenler", daily_review: "Günlük Tekrar (SRS)", daily_review_desc: "Unutmak üzere oldukların", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen", msg_perfect: "Mükemmel! Hepsini bildin. 🎉", msg_good: "Çok iyisin! 💪", msg_avg: "Güzel, ama tekrar yapmalısın. 👍", msg_bad: "Daha çok çalışmalısın. 📚", streak: "Günlük Seri!", alert_min: "Bu mod için en az {n} kelime gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} kelime eklendi!", alert_reset: "Her şey silinecek?", alert_no_unknown: "Bilinmeyen kelime kalmadı!", alert_no_srs: "Tekrar zamanı gelen yok."
+        work_areas: "ÇALIŞMA ALANLARI", words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", settings: "AYARLAR", add_data: "Veri Ekle", add_desc: "Tekli veya Toplu veri girişi", reset: "Sıfırla", reset_desc: "Tüm ilerlemeyi sil", add_single: "Tekli Ekle", add_bulk: "Toplu Ekle", save: "KAYDET", bulk_save: "TOPLU KAYDET", bulk_format: "Format: Seviye (Enter) kelime : anlam", games: "Oyunlar", quiz_game: "Test (Quiz)", quiz_desc: "10 Soru", match_game: "Eşleştirme", match_desc: "5 Çift", flash_game: "Kartlar", flash_desc: "10 Kart", progress: "Gelişim", smart_review: "Akıllı Tekrar", srs_desc: "SRS ve Bilinmeyenler", stats: "İstatistikler", stats_desc: "Gelişim raporu", question: "Soru", card: "Kart", tap_flip: "👆 Çevirmek için dokun", know: "Biliyorum", dont_know: "Bilmiyorum", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", study_unknown_desc: "Henüz öğrenilmeyenler", daily_review: "Günlük Tekrar (SRS)", daily_review_desc: "Unutmak üzere oldukların", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen", msg_perfect: "Mükemmel! Hepsini bildin. 🎉", msg_good: "Çok iyisin! 💪", msg_avg: "Güzel, ama tekrar yapmalısın. 👍", msg_bad: "Daha çok çalışmalısın. 📚", streak: "Günlük Seri!", alert_min: "Bu mod için en az {n} kelime gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} kelime eklendi!", alert_reset: "Her şey silinecek?", alert_no_unknown: "Bilinmeyen kelime kalmadı!", alert_no_srs: "Tekrar zamanı gelen yok.", btn_upload: "📁 TXT Dosyası Yükle", file_loaded: "Dosya Yüklendi!"
     },
     en: {
-        work_areas: "STUDY AREAS", words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily speech patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", settings: "SETTINGS", add_data: "Add Data", add_desc: "Single or Bulk entry", reset: "Reset", reset_desc: "Delete all progress", add_single: "Single Add", add_bulk: "Bulk Add", save: "SAVE", bulk_save: "BULK SAVE", bulk_format: "Format: Level (Enter) word : meaning", games: "Games", quiz_game: "Quiz", quiz_desc: "10 Questions", match_game: "Match", match_desc: "5 Pairs", flash_game: "Cards", flash_desc: "10 Cards", progress: "Progress", smart_review: "Smart Review", srs_desc: "SRS & Unknowns", stats: "Statistics", stats_desc: "Progress report", question: "Question", card: "Card", tap_flip: "👆 Tap to flip", know: "I Know", dont_know: "Don't Know", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", study_unknown_desc: "Not learned yet", daily_review: "Daily Review (SRS)", daily_review_desc: "Due for review", total: "Total", learned: "Learned", unknown: "Unknown", msg_perfect: "Perfect! You knew them all. 🎉", msg_good: "Great job! 💪", msg_avg: "Good, but needs review. 👍", msg_bad: "Keep practicing. 📚", streak: "Day Streak!", alert_min: "Need at least {n} words.", alert_added: "Added!", alert_bulk_added: "{n} words added!", alert_reset: "Delete everything?", alert_no_unknown: "No unknown words left!", alert_no_srs: "No reviews due."
+        work_areas: "STUDY AREAS", words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily speech patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", settings: "SETTINGS", add_data: "Add Data", add_desc: "Single or Bulk entry", reset: "Reset", reset_desc: "Delete all progress", add_single: "Single Add", add_bulk: "Bulk Add", save: "SAVE", bulk_save: "BULK SAVE", bulk_format: "Format: Level (Enter) word : meaning", games: "Games", quiz_game: "Quiz", quiz_desc: "10 Questions", match_game: "Match", match_desc: "5 Pairs", flash_game: "Cards", flash_desc: "10 Cards", progress: "Progress", smart_review: "Smart Review", srs_desc: "SRS & Unknowns", stats: "Statistics", stats_desc: "Progress report", question: "Question", card: "Card", tap_flip: "👆 Tap to flip", know: "I Know", dont_know: "Don't Know", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", study_unknown_desc: "Not learned yet", daily_review: "Daily Review (SRS)", daily_review_desc: "Due for review", total: "Total", learned: "Learned", unknown: "Unknown", msg_perfect: "Perfect! You knew them all. 🎉", msg_good: "Great job! 💪", msg_avg: "Good, but needs review. 👍", msg_bad: "Keep practicing. 📚", streak: "Day Streak!", alert_min: "Need at least {n} words.", alert_added: "Added!", alert_bulk_added: "{n} words added!", alert_reset: "Delete everything?", alert_no_unknown: "No unknown words left!", alert_no_srs: "No reviews due.", btn_upload: "📁 Upload TXT File", file_loaded: "File Loaded!"
     }
 };
 
@@ -590,15 +560,15 @@ window.onload = () => {
 };
 
 function initDB() {
-    let stored = localStorage.getItem("WM_DB_V14");
+    let stored = localStorage.getItem("WM_DB_V16");
     DATA = stored ? JSON.parse(stored) : { "KELİMELER":{}, "KALIPLAR":{}, "DEYİMLER":{} };
     for(let cat in DATA) { LEVELS.forEach(l => { if(!DATA[cat][l]) DATA[cat][l] = []; }); }
-    SRS_DATA = JSON.parse(localStorage.getItem("WM_SRS_V14") || "{}");
+    SRS_DATA = JSON.parse(localStorage.getItem("WM_SRS_V16") || "{}");
 }
 
 function saveDB() {
-    localStorage.setItem("WM_DB_V14", JSON.stringify(DATA));
-    localStorage.setItem("WM_SRS_V14", JSON.stringify(SRS_DATA));
+    localStorage.setItem("WM_DB_V16", JSON.stringify(DATA));
+    localStorage.setItem("WM_SRS_V16", JSON.stringify(SRS_DATA));
     localStorage.setItem("INIT", "1");
 }
 
@@ -782,6 +752,19 @@ function addBulk() {
         }
     });
     saveDB(); alert(LANG[currentLang].alert_bulk_added.replace("{n}", count)); document.getElementById("bulkInput").value="";
+}
+
+/* === DOSYA YÜKLEME === */
+function loadFile() {
+    const input = document.getElementById('fileInput');
+    if(input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('bulkInput').value = e.target.result;
+            alert(LANG[currentLang].file_loaded);
+        };
+        reader.readAsText(input.files[0]);
+    }
 }
 
 function updateSRS(w, c) {
