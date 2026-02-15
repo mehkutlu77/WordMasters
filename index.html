@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>WORD MASTER - v18.0 Advanced Edition</title>
+<title>WORD MASTER - v18.2 Advanced Edition</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -52,7 +52,7 @@ body {
     color: #0284C7; 
     font-weight: 800; 
     font-size: 0.75rem;
-    width: 80px; height: 45px; /* Settings butonu ile eşitlendi */
+    width: 80px; height: 45px; 
     padding: 0;
     display: flex;
     align-items: center;
@@ -268,7 +268,19 @@ button:active { transform: translateY(4px); box-shadow: none; }
 .result-score { font-family: 'Russo One', sans-serif; font-size: 3rem; color: white; text-shadow: 4px 4px 0px rgba(0,0,0,0.2); margin: 0; }
 .result-label { color: rgba(255,255,255,0.9); font-size: 1.2rem; font-weight: 700; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px; }
 @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
+/* SAYAÇ YAZI STİLİ */
+#quizCounter, #fcCounter {
+    font-family: 'Russo One', sans-serif;
+    color: #3B82F6;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    background: #EFF6FF;
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
 </style>
 </head>
 <body>
@@ -360,7 +372,7 @@ button:active { transform: translateY(4px); box-shadow: none; }
             
             <div id="bulkMode" style="display:none;">
                 <p style="color:#666; font-size:0.85rem; line-height:1.2; margin-bottom:10px;">
-                    Format: Bloklar tire çizgisi (---) ile ayrılmalıdır. Boş satırlara dikkat edin.
+                    Format: Seçilen kategoriye göre uygun formatı kullanın.
                 </p>
                 <select id="bulkCat" class="input-field">
                     <option value="KELİMELER" data-lang="words">Kelimeler</option>
@@ -371,13 +383,7 @@ button:active { transform: translateY(4px); box-shadow: none; }
                 <input type="file" id="fileInput" accept=".txt" style="display:none" onchange="loadFile()">
                 <button class="btn-file-upload" onclick="document.getElementById('fileInput').click()" data-lang="btn_upload">📁 TXT Dosyası Yükle</button>
 
-                <textarea id="bulkInput" class="input-field" style="height:250px; font-size:0.85rem;" placeholder='apple
-elma
-You use this word to say "elma".
-This is my apple.
-Present Simple / To Be
-A1
---------------------------------'></textarea>
+                <textarea id="bulkInput" class="input-field" style="height:250px; font-size:0.85rem;" placeholder='KELİMELER İÇİN 6 SATIRLI BLOK FORMATI...&#10;DEYİM VE KALIP İÇİN SEVİYE BAZLI FORMAT...'></textarea>
                 <button class="btn-green" onclick="addBulk()" data-lang="bulk_save">TOPLU KAYDET</button>
             </div>
         </div>
@@ -438,12 +444,12 @@ A1
             <div style="width:45px;"></div>
         </div>
         <div class="content" style="display:flex; flex-direction:column; justify-content:center;">
-            <div style="text-align:center; margin-bottom:10px; color:#666; font-weight:700;">
-                <span data-lang="question">Soru</span>: <span id="quizCounter">1</span> / 10
-            </div>
-            <div class="quiz-question" id="qText">WORD</div>
-            <div class="quiz-grid" id="qOptions"></div>
-        </div>
+    <div style="text-align:center;">
+        <span id="quizCounter">1 / 10</span>
+    </div>
+    <div class="quiz-question" id="qText">WORD</div>
+    <div class="quiz-grid" id="qOptions"></div>
+</div>
     </div>
 
     <div class="screen" id="matchScreen">
@@ -463,10 +469,10 @@ A1
             <span class="mini-word-art" data-lang="flash_game">Kartlar</span>
             <div style="width:45px;"></div>
         </div>
-        <div class="content" style="display:flex; flex-direction:column;">
-            <div style="text-align:center; margin-bottom:10px; color:#666; font-weight:700;">
-                <span data-lang="card">Kart</span>: <span id="fcCounter">1</span> / 10
-            </div>
+       <div class="content" style="display:flex; flex-direction:column;">
+    <div style="text-align:center;">
+        <span id="fcCounter">1 / 10</span>
+    </div>
             
             <div class="flashcard-wrapper">
                 <div class="flashcard" id="fcCard" onclick="flipCard()">
@@ -492,7 +498,7 @@ A1
                 <div class="result-score" id="resultScore">%100</div>
                 <div class="result-label" data-lang="success_rate">BAŞARI ORANI</div>
             </div>
-            <p id="resultMsg" style="color:#666; font-size:1.1rem; margin-bottom:30px; text-align:center;"></p>
+            <p id="resultMsg" style="color:#666; font-size:1.1rem; margin-bottom:30px; text-align:center; font-weight:700;"></p>
             <button class="btn-green" onclick="show('dashboardScreen')" data-lang="continue">DEVAM ET</button>
         </div>
     </div>
@@ -526,8 +532,9 @@ A1
             <div style="width:45px;"></div>
         </div>
         <div class="content">
-            <canvas id="srsChart"></canvas>
-            <h3 class="mini-word-art" style="font-size:0.9rem; margin-top:20px; color:#666;">Kelime Tekrar Dağılımı</h3>
+            <h3 class="mini-word-art" style="font-size:0.85rem; color:#666; margin-bottom:10px;">Öğrenme Süreci (Kategori Bazlı)</h3>
+<canvas id="srsChart"></canvas>
+<h3 class="mini-word-art" style="font-size:0.85rem; margin-top:25px; color:#666; margin-bottom:10px;">Toplam Tekrar Sayıları</h3>
             <canvas id="repeatChart"></canvas>
             <div class="stats-summary">
                 <div class="stat-item"><span class="stat-val" id="statTotal">0</span><span class="stat-lbl" data-lang="total">Toplam</span></div>
@@ -540,31 +547,6 @@ A1
 </div>
 
 <script>
-/* === DİL YÖNETİMİ === */
-let currentLang = localStorage.getItem("WM_LANG") || "tr";
-const LANG = {
-    tr: {
-        work_areas: "ÇALIŞMA ALANLARI", words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", settings: "AYARLAR", add_data: "Veri Ekle", add_desc: "Toplu veri girişi", reset: "Sıfırla", reset_desc: "Tüm ilerlemeyi sil", add_single: "Tekli Ekle", add_bulk: "Toplu Ekle", save: "KAYDET", bulk_save: "TOPLU KAYDET", games: "Oyunlar", quiz_game: "Test (Quiz)", quiz_desc: "10 Soru", match_game: "Eşleştirme", match_desc: "5 Çift", flash_game: "Kartlar", flash_desc: "10 Kart", progress: "Gelişim", smart_review: "Akıllı Tekrar", srs_desc: "SRS ve Bilinmeyenler", stats: "İstatistikler", stats_desc: "Gelişim raporu", question: "Soru", card: "Kart", tap_flip: "👆 Çevirmek için dokun", know: "Biliyorum", dont_know: "Bilmiyorum", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", study_unknown_desc: "Henüz öğrenilmeyenler", daily_review: "Günlük Tekrar (SRS)", daily_review_desc: "Unutmak üzere oldukların", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen", msg_perfect: "Mükemmel! Hepsini bildin. 🎉", msg_good: "Çok iyisin! 💪", msg_avg: "Güzel, ama tekrar yapmalısın. 👍", msg_bad: "Daha çok çalışmalısın. 📚", streak: "Günlük Seri!", alert_min: "Bu mod için en az {n} kelime gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} kelime eklendi!", alert_reset: "Her şey silinecek?", alert_no_unknown: "Bilinmeyen kelime kalmadı!", alert_no_srs: "Tekrar zamanı gelen yok.", btn_upload: "📁 TXT Dosyası Yükle", file_loaded: "Dosya Yüklendi!"
-    },
-    en: {
-        work_areas: "STUDY AREAS", words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily speech patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", settings: "SETTINGS", add_data: "Add Data", add_desc: "Bulk data entry", reset: "Reset", reset_desc: "Delete all progress", add_single: "Single Add", add_bulk: "Bulk Add", save: "SAVE", bulk_save: "BULK SAVE", games: "Games", quiz_game: "Quiz", quiz_desc: "10 Questions", match_game: "Match", match_desc: "5 Pairs", flash_game: "Cards", flash_desc: "10 Cards", progress: "Progress", smart_review: "Smart Review", srs_desc: "SRS & Unknowns", stats: "Statistics", stats_desc: "Progress report", question: "Question", card: "Card", tap_flip: "👆 Tap to flip", know: "I Know", dont_know: "Don't Know", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", study_unknown_desc: "Not learned yet", daily_review: "Daily Review (SRS)", daily_review_desc: "Due for review", total: "Total", learned: "Learned", unknown: "Unknown", msg_perfect: "Perfect! You knew them all. 🎉", msg_good: "Great job! 💪", msg_avg: "Good, but needs review. 👍", msg_bad: "Keep practicing. 📚", streak: "Day Streak!", alert_min: "Need at least {n} words.", alert_added: "Added!", alert_bulk_added: "{n} words added!", alert_reset: "Delete everything?", alert_no_unknown: "No unknown words left!", alert_no_srs: "No reviews due.", btn_upload: "📁 Upload TXT File", file_loaded: "File Loaded!"
-    }
-};
-
-function toggleLanguage() {
-    currentLang = currentLang === "tr" ? "en" : "tr";
-    localStorage.setItem("WM_LANG", currentLang);
-    applyLanguage();
-}
-
-function applyLanguage() {
-    document.querySelectorAll("[data-lang]").forEach(el => {
-        let key = el.getAttribute("data-lang");
-        if(LANG[currentLang][key]) el.innerText = LANG[currentLang][key];
-    });
-    checkStreak();
-}
-
 /* === SİSTEM & VERİ === */
 const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
 let DATA = {}, SRS_DATA = {};
@@ -574,6 +556,12 @@ let matchSelected = null, chartInstance = null, repeatChartInstance = null;
 const ONE_DAY = 24 * 60 * 60 * 1000;
 const SRS_INTERVALS = [ONE_DAY, 3*ONE_DAY, 7*ONE_DAY, 15*ONE_DAY, 30*ONE_DAY];
 let sessionCorrect = 0, sessionTotal = 0;
+let currentLang = localStorage.getItem("WM_LANG") || "tr";
+
+const LANG = {
+    tr: { words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", msg_perfect: "Mükemmel! 🎉", msg_good: "Güzel! 💪", msg_bad: "Çalışmalısın! 📚", streak: "Günlük Seri!", alert_min: "En az {n} öğe gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} öğe eklendi!", alert_no_unknown: "Bilinmeyen kalmadı!", alert_no_srs: "Tekrarı gelen yok.", btn_upload: "📁 TXT Dosyası Yükle", file_loaded: "Dosya Yüklendi!", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", daily_review: "Günlük Tekrar (SRS)", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen" },
+    en: { words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", msg_perfect: "Perfect! 🎉", msg_good: "Great! 💪", msg_bad: "Keep practicing! 📚", streak: "Day Streak!", alert_min: "Min {n} items required.", alert_added: "Added!", alert_bulk_added: "{n} items added!", alert_no_unknown: "No unknown items!", alert_no_srs: "No reviews due.", btn_upload: "📁 Upload TXT", file_loaded: "File Loaded!", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", daily_review: "Daily Review", total: "Total", learned: "Learned", unknown: "Unknown" }
+};
 
 window.onload = () => {
     initDB();
@@ -598,20 +586,15 @@ function saveDB() {
 function checkStreak() {
     let last = localStorage.getItem("LAST_VISIT"), streak = parseInt(localStorage.getItem("STREAK")||0);
     let todayDate = new Date();
-    let todayStr = todayDate.toDateString();
-    
-    if(last !== todayStr) {
+    if(last !== todayDate.toDateString()) {
         let yest = new Date(); yest.setDate(yest.getDate()-1);
         streak = (last === yest.toDateString()) ? streak + 1 : 1;
-        localStorage.setItem("LAST_VISIT", todayStr);
+        localStorage.setItem("LAST_VISIT", todayDate.toDateString());
         localStorage.setItem("STREAK", streak);
     }
     document.getElementById("streakDisplay").innerText = streak + " " + LANG[currentLang].streak;
-
-    // YENİ: Bugünün dairesini işaretle
-    let dayOfWeek = todayDate.getDay(); 
-    let targetCircle = document.getElementById("day-" + dayOfWeek);
-    if(targetCircle) targetCircle.classList.add("active");
+    let dayCircle = document.getElementById("day-" + todayDate.getDay());
+    if(dayCircle) dayCircle.classList.add("active");
 }
 
 function show(id) {
@@ -636,11 +619,9 @@ function selectLevel(l) { activeLvl = l; document.getElementById("dashTitle").in
 
 function initGame(mode) {
     let pool = DATA[activeCat][activeLvl];
-    let minReq = (mode === 'match') ? 5 : 4; 
-    if(!pool || pool.length < minReq) return alert(LANG[currentLang].alert_min.replace("{n}", minReq));
-    let count = (mode === 'match') ? 5 : 10;
-    gamePool = [...pool].sort(() => 0.5 - Math.random()).slice(0, count);
-    currentIndex = 0; sessionCorrect = 0; sessionTotal = 0; // Toplam sayaç sıfırlanıyor
+    if(pool.length < 4) return alert(LANG[currentLang].alert_min.replace("{n}", 4));
+    gamePool = [...pool].sort(() => 0.5 - Math.random()).slice(0, 10);
+    currentIndex = 0; sessionCorrect = 0; sessionTotal = 0;
     if(mode === 'quiz') { show('quizScreen'); renderQuiz(); }
     else if(mode === 'match') { show('matchScreen'); renderMatch(); }
     else { show('flashScreen'); renderFlash(); }
@@ -649,33 +630,26 @@ function initGame(mode) {
 function renderFlash() {
     if(currentIndex >= gamePool.length) return finishGameWithResult();
     currentWord = gamePool[currentIndex];
-    document.getElementById("fcCounter").innerText = (currentIndex + 1);
-    let card = document.getElementById("fcCard"); 
-    card.classList.remove("flipped");
+    document.getElementById("fcCounter").innerText = (currentIndex + 1) + " / " + gamePool.length;
+    document.getElementById("fcCard").classList.remove("flipped");
     document.getElementById("fcFrontText").innerText = currentWord.eng;
     const backFace = document.getElementById('fcBackContent');
     backFace.innerHTML = `
-        <div class="fc-header"><div class="fc-word-sm" style="color:#1F2937;">${currentWord.eng}</div><button class="fc-audio-btn" onclick="event.stopPropagation(); TTS(currentWord.eng)">🔊</button></div>
+        <div class="fc-header"><div class="fc-word-sm" style="color:#1F2937;">${currentWord.eng}</div><button class="fc-audio-btn" onclick="event.stopPropagation(); TTS('${currentWord.eng}')">🔊</button></div>
         <div class="fc-meaning" style="margin-bottom:15px; font-weight:800; color:#3B82F6; font-size:1.4rem;">${currentWord.tr || ''}</div>
-        <div style="margin-bottom:15px; font-style:italic; color:#4B5563; font-size:1rem; line-height:1.4;">"${currentWord.ex || ''}"</div>
+        <div style="margin-bottom:15px; font-style:italic; color:#4B5563; font-size:1rem; line-height:1.4;">${currentWord.ex ? '"'+currentWord.ex+'"' : ''}</div>
         <div style="background:#F3F4F6; display:inline-block; padding:2px 8px; border-radius:6px; font-weight:800; color:#6B7280; font-size:0.75rem;">${currentWord.lvl || activeLvl}</div>
-        <div style="margin-top:auto;"></div>
     `;
     TTS(currentWord.eng);
 }
 
 function flipCard() { document.getElementById("fcCard").classList.toggle("flipped"); }
-function nextCard(known) {
-    sessionTotal++;
-    if(known) sessionCorrect++;
-    updateSRS(currentWord, known);
-    currentIndex++; renderFlash();
-}
+function nextCard(known) { sessionTotal++; if(known) sessionCorrect++; updateSRS(currentWord, known); currentIndex++; renderFlash(); }
 
 function renderQuiz() {
     if(currentIndex >= gamePool.length) return finishGameWithResult();
     currentWord = gamePool[currentIndex];
-    document.getElementById("quizCounter").innerText = (currentIndex + 1);
+    document.getElementById("quizCounter").innerText = (currentIndex + 1) + " / " + gamePool.length;
     document.getElementById("qText").innerText = currentWord.eng;
     TTS(currentWord.eng);
     let opts = [currentWord.tr], all = DATA[activeCat][activeLvl].map(w => w.tr);
@@ -697,14 +671,13 @@ function checkQuiz(btn, ans) {
 }
 
 function renderMatch() {
-    let items = [];
-    let matchPool = gamePool.slice(0, 5);
-    matchPool.forEach(w => { items.push({ id: w.eng, text: w.eng }); items.push({ id: w.eng, text: w.tr }); });
+    let items = []; let pool = gamePool.slice(0, 5);
+    pool.forEach(w => { items.push({ id: w.eng, text: w.eng }); items.push({ id: w.eng, text: w.tr }); });
     items.sort(() => 0.5 - Math.random());
     let grid = document.getElementById("matchGrid"); grid.innerHTML = "";
     items.forEach((item, i) => {
         let div = document.createElement("div");
-        div.className = "match-card mc-" + ((i % 6) + 1); // Renkler mc- sınıflarından geliyor
+        div.className = "match-card mc-" + ((i % 6) + 1);
         div.innerText = item.text; div.dataset.id = item.id;
         div.onclick = () => handleMatch(div);
         grid.appendChild(div);
@@ -728,71 +701,56 @@ function handleMatch(el) {
 }
 
 function finishGameWithResult() {
-    let percentage = Math.round((sessionCorrect / sessionTotal) * 100) || 0;
-    document.getElementById("resultScore").innerText = `%${percentage}`;
-    let msg = percentage >= 80 ? LANG[currentLang].msg_perfect : (percentage >= 50 ? LANG[currentLang].msg_good : LANG[currentLang].msg_bad);
-    document.getElementById("resultMsg").innerText = msg;
+    let perc = Math.round((sessionCorrect / sessionTotal) * 100) || 0;
+    document.getElementById("resultScore").innerText = `%${perc}`;
+    document.getElementById("resultMsg").innerText = perc >= 80 ? LANG[currentLang].msg_perfect : (perc >= 50 ? LANG[currentLang].msg_good : LANG[currentLang].msg_bad);
     show('resultScreen');
 }
 
-let isBulk = false;
-function setAddMode(mode) {
-    isBulk = (mode === 'bulk');
-    document.getElementById("btnSingle").className = isBulk ? "add-option-btn" : "add-option-btn active";
-    document.getElementById("btnBulk").className = isBulk ? "add-option-btn active" : "add-option-btn";
-    document.getElementById("singleMode").style.display = isBulk ? "none" : "block";
-    document.getElementById("bulkMode").style.display = isBulk ? "block" : "none";
-}
-function addSingle() {
-    let cat = document.getElementById("addCat").value, lvl = document.getElementById("addLvl").value;
-    let eng = document.getElementById("addEng").value.trim(), tr = document.getElementById("addTr").value.trim();
-    if(!eng || !tr) return alert("Eksik bilgi!");
-    DATA[cat][lvl].push({eng, tr, lvl: lvl, ex: "", def: "", grammar: ""});
-    SRS_DATA[eng] = { stage: 0, nextDate: 0, repeats: 0 };
-    saveDB(); alert(LANG[currentLang].alert_added);
-}
-
+/* === GELİŞMİŞ PARSER (KELİME VS DEYİM/KALIP AYRIMI) === */
 function addBulk() {
     const text = document.getElementById("bulkInput").value.trim();
     if (!text) return;
-    const blocks = text.split(/--------------------------------/);
+    const cat = document.getElementById("bulkCat").value;
     let count = 0;
-    blocks.forEach(block => {
-        const lines = block.trim().split("\n").map(l => l.trim()).filter(l => l !== "");
-        if (lines.length >= 6) {
-            let entry = { eng: lines[0], tr: lines[1], def: lines[2], ex: lines[3], grammar: lines[4], lvl: lines[5].toUpperCase() };
-            if (LEVELS.includes(entry.lvl)) {
-                DATA[document.getElementById("bulkCat").value][entry.lvl].push(entry);
-                SRS_DATA[entry.eng] = { stage: 0, nextDate: 0, repeats: 0 };
+
+    if (cat === "KELİMELER") {
+        // Kelimeler için dokunulmaz blok formatı
+        const blocks = text.split(/--------------------------------/);
+        blocks.forEach(block => {
+            const lines = block.trim().split("\n").map(l => l.trim()).filter(l => l);
+            if (lines.length >= 6) {
+                let entry = { eng: lines[0], tr: lines[1], def: lines[2], ex: lines[3], grammar: lines[4], lvl: lines[5].toUpperCase() };
+                if (LEVELS.includes(entry.lvl)) { DATA[cat][entry.lvl].push(entry); count++; }
+            }
+        });
+    } else {
+        // Kalıplar ve Deyimler için yeni satır tabanlı format
+        let currentBulkLvl = "A1";
+        const lines = text.split("\n").map(l => l.trim()).filter(l => l);
+        lines.forEach(line => {
+            if (LEVELS.includes(line.toUpperCase())) {
+                currentBulkLvl = line.toUpperCase();
+            } else if (line.includes(" : ")) {
+                let parts = line.split(" : ");
+                DATA[cat][currentBulkLvl].push({ eng: parts[0].trim(), tr: parts[1].trim(), ex: "", grammar: "", lvl: currentBulkLvl });
                 count++;
             }
-        }
-    });
-    saveDB(); alert(LANG[currentLang].alert_bulk_added.replace("{n}", count));
-}
-
-function loadFile() {
-    const input = document.getElementById('fileInput');
-    if(input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => { document.getElementById('bulkInput').value = e.target.result; alert(LANG[currentLang].file_loaded); };
-        reader.readAsText(input.files[0]);
+        });
     }
+    saveDB(); alert(LANG[currentLang].alert_bulk_added.replace("{n}", count));
+    document.getElementById("bulkInput").value = "";
 }
 
 function updateSRS(w, c) {
-    if(!SRS_DATA[w.eng]) SRS_DATA[w.eng] = { stage: 0, nextDate: 0, repeats: 0 };
+    if(!SRS_DATA[w.eng]) SRS_DATA[w.eng] = { stage: 0, repeats: 0 };
     if(c) {
-        let s = SRS_DATA[w.eng].stage;
-        SRS_DATA[w.eng].nextDate = Date.now() + (SRS_INTERVALS[s] || SRS_INTERVALS[4]);
-        if(s < 4) SRS_DATA[w.eng].stage++;
-        SRS_DATA[w.eng].repeats = (SRS_DATA[w.eng].repeats || 0) + 1; // Başarılı tekrarları say
-    } else { 
-        SRS_DATA[w.eng].stage = 0; // Yanlışsa başa döner -> Bilinmeyenler havuzu
-        SRS_DATA[w.eng].nextDate = 0; 
-    }
+        SRS_DATA[w.eng].stage = Math.min((SRS_DATA[w.eng].stage || 0) + 1, 5);
+        SRS_DATA[w.eng].repeats = (SRS_DATA[w.eng].repeats || 0) + 1;
+    } else { SRS_DATA[w.eng].stage = 0; } // Yanlışsa 0'lanır -> Bilinmeyenler havuzu
     saveDB();
 }
+
 function startUnknownGame() {
     let pool = []; for(let c in DATA) for(let l in DATA[c]) pool = pool.concat(DATA[c][l]);
     let target = pool.filter(w => !SRS_DATA[w.eng] || SRS_DATA[w.eng].stage === 0);
@@ -801,33 +759,87 @@ function startUnknownGame() {
 }
 function startSRSGame() {
     let pool = []; for(let c in DATA) for(let l in DATA[c]) pool = pool.concat(DATA[c][l]);
-    let target = pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0 && SRS_DATA[w.eng].nextDate <= Date.now());
+    let target = pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0);
     if(target.length === 0) return alert(LANG[currentLang].alert_no_srs);
     gamePool = target.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; sessionCorrect = 0; sessionTotal = 0; show('quizScreen'); renderQuiz();
 }
 
+/* === İSTATİSTİKLERİ KATEGORİ BAZLI (3 RENKLİ) GÖSTEREN GÜNCEL FONKSİYON === */
 function showChartScreen() {
     show('chartScreen');
-    let pool = []; for(let c in DATA) for(let l in DATA[c]) pool = pool.concat(DATA[c][l]);
-    let stages = [0,0,0,0,0,0], repeatData = { r1:0, r3:0, r5:0, r7:0, r15:0 };
-    pool.forEach(w => {
-        let s = SRS_DATA[w.eng] ? SRS_DATA[w.eng].stage : 0; stages[s]++;
-        let rep = SRS_DATA[w.eng] ? (SRS_DATA[w.eng].repeats || 0) : 0;
-        if(rep >= 15) repeatData.r15++; else if(rep >= 7) repeatData.r7++; else if(rep >= 5) repeatData.r5++; else if(rep >= 3) repeatData.r3++; else if(rep >= 1) repeatData.r1++;
-    });
     
-    document.getElementById("statTotal").innerText = pool.length;
-    document.getElementById("statLearned").innerText = pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0).length;
-    document.getElementById("statUnknown").innerText = pool.length - pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0).length;
+    // Her kategori için ayrı veri havuzları
+    let catStats = {
+        "KELİMELER": { s: [0,0,0,0,0,0], r: [0,0,0,0,0] },
+        "KALIPLAR": { s: [0,0,0,0,0,0], r: [0,0,0,0,0] },
+        "DEYİMLER": { s: [0,0,0,0,0,0], r: [0,0,0,0,0] }
+    };
+    
+    let totalAll = 0, learnedAll = 0;
 
+    // Tüm veriyi kategorilerine göre tara
+    for (let cat in DATA) {
+        for (let lvl in DATA[cat]) {
+            DATA[cat][lvl].forEach(w => {
+                totalAll++;
+                let s = SRS_DATA[w.eng] ? (SRS_DATA[w.eng].stage || 0) : 0;
+                let r = SRS_DATA[w.eng] ? (SRS_DATA[w.eng].repeats || 0) : 0;
+                
+                catStats[cat].s[s]++; // Süreç verisi
+                
+                // Tekrar dağılım verisi
+                if(r >= 15) catStats[cat].r[4]++;
+                else if(r >= 7) catStats[cat].r[3]++;
+                else if(r >= 5) catStats[cat].r[2]++;
+                else if(r >= 3) catStats[cat].r[1]++;
+                else if(r >= 1) catStats[cat].r[0]++;
+
+                if(s > 0) learnedAll++;
+            });
+        }
+    }
+
+    // Özet bilgileri güncelle
+    document.getElementById("statTotal").innerText = totalAll;
+    document.getElementById("statLearned").innerText = learnedAll;
+    document.getElementById("statUnknown").innerText = totalAll - learnedAll;
+
+    // GRAFİK 1: Süreç Dağılımı (Kelimeler: Mavi, Kalıplar: Yeşil, Deyimler: Turuncu)
     if(chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(document.getElementById("srsChart"), { type: 'bar', data: { labels: ['New', '1D', '3D', '7D', '15D', '30D'], datasets: [{ label: 'Count', data: stages, backgroundColor: '#3B82F6' }] }});
-    
+    chartInstance = new Chart(document.getElementById("srsChart"), {
+        type: 'bar',
+        data: {
+            labels: ['Yeni', '1G', '3G', '7G', '15G', '30G'],
+            datasets: [
+                { label: 'Kelimeler', data: catStats["KELİMELER"].s, backgroundColor: '#3B82F6' },
+                { label: 'Kalıplar', data: catStats["KALIPLAR"].s, backgroundColor: '#22C55E' },
+                { label: 'Deyimler', data: catStats["DEYİMLER"].s, backgroundColor: '#F59E0B' }
+            ]
+        },
+        options: { scales: { x: { stacked: true }, y: { stacked: true } } }
+    });
+
+    // GRAFİK 2: Tekrar Dağılımı (Çizgi Grafik - 3 Renk)
     if(repeatChartInstance) repeatChartInstance.destroy();
-    repeatChartInstance = new Chart(document.getElementById("repeatChart"), { type: 'line', data: { labels: ['1 Rep', '3 Rep', '5 Rep', '7 Rep', '15+ Rep'], datasets: [{ label: 'Words', data: [repeatData.r1, repeatData.r3, repeatData.r5, repeatData.r7, repeatData.r15], borderColor: '#22C55E', backgroundColor: 'rgba(34,197,94,0.1)', fill: true }] }});
+    repeatChartInstance = new Chart(document.getElementById("repeatChart"), {
+        type: 'line',
+        data: {
+            labels: ['1 Rep', '3 Rep', '5 Rep', '7 Rep', '15+ Rep'],
+            datasets: [
+                { label: 'Kelimeler', data: catStats["KELİMELER"].r, borderColor: '#3B82F6', tension: 0.3, fill: false },
+                { label: 'Kalıplar', data: catStats["KALIPLAR"].r, borderColor: '#22C55E', tension: 0.3, fill: false },
+                { label: 'Deyimler', data: catStats["DEYİMLER"].r, borderColor: '#F59E0B', tension: 0.3, fill: false }
+            ]
+        }
+    });
 }
+function applyLanguage() { document.querySelectorAll("[data-lang]").forEach(el => { let key = el.getAttribute("data-lang"); if(LANG[currentLang][key]) el.innerText = LANG[currentLang][key]; }); }
+function toggleLanguage() { currentLang = currentLang === "tr" ? "en" : "tr"; localStorage.setItem("WM_LANG", currentLang); applyLanguage(); checkStreak(); }
 function TTS(t) { let u = new SpeechSynthesisUtterance(t); u.lang='en-US'; window.speechSynthesis.speak(u); }
 function resetAllData() { if(confirm(LANG[currentLang].alert_reset)) { localStorage.clear(); location.reload(); } }
+function loadFile() { const input = document.getElementById('fileInput'); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = e => { document.getElementById('bulkInput').value = e.target.result; alert(LANG[currentLang].file_loaded); }; reader.readAsText(input.files[0]); } }
+function setAddMode(mode) { isBulk = (mode === 'bulk'); document.getElementById("btnSingle").className = isBulk ? "add-option-btn" : "add-option-btn active"; document.getElementById("btnBulk").className = isBulk ? "add-option-btn active" : "add-option-btn"; document.getElementById("singleMode").style.display = isBulk ? "none" : "block"; document.getElementById("bulkMode").style.display = isBulk ? "block" : "none"; }
+
 </script>
 </body>
 </html>
