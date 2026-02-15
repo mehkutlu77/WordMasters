@@ -2,13 +2,13 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>WORD MASTER - v16.0 File Upload</title>
+<title>WORD MASTER - v18.0 Advanced Edition</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-/* 1. GENEL TASARIM */
+/* 1. DOKUNULMAZ GENEL TASARIM */
 :root {
     --primary: #3B82F6;
     --primary-light: #EFF6FF;
@@ -47,9 +47,19 @@ body {
 }
 
 .lang-btn {
-    background: #E0F2FE; border: 2px solid #7DD3FC;
-    color: #0284C7; font-weight: 800; font-size: 0.9rem;
-    padding: 8px 12px; border-radius: 12px; cursor: pointer; transition: 0.2s;
+    background: #E0F2FE; 
+    border: 2px solid #7DD3FC;
+    color: #0284C7; 
+    font-weight: 800; 
+    font-size: 0.75rem;
+    width: 80px; height: 45px; /* Settings butonu ile eşitlendi */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px; 
+    cursor: pointer; 
+    transition: 0.2s;
 }
 .lang-btn:active { transform: scale(0.95); }
 
@@ -82,7 +92,7 @@ body {
 
 .btn-settings {
     background: #F3F4F6; border: 2px solid #E5E7EB; color: #4B5563;
-    width: 45px; height: 45px; border-radius: 12px;
+    width: 80px; height: 45px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; font-size: 1.5rem; transition: 0.1s;
 }
@@ -133,6 +143,13 @@ button:active { transform: translateY(4px); box-shadow: none; }
 }
 .streak-count { font-size: 1.8rem; font-weight: 800; color: #DB2777; }
 
+/* WEEK TRACKER GÖRSELİ */
+.week-tracker { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #F9A8D4; }
+.day-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.day-circle { width: 22px; height: 22px; border: 2px solid #E5E7EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: transparent; background: #fff; font-weight: 800; }
+.day-circle.active { background: #22C55E; border-color: #22C55E; color: #fff; }
+.day-label { font-size: 0.6rem; font-weight: 800; color: #9CA3AF; }
+
 /* SEVİYE BUTONLARI */
 .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .level-btn {
@@ -153,7 +170,10 @@ button:active { transform: translateY(4px); box-shadow: none; }
 .lvl-cyan { background: linear-gradient(135deg, #26C6DA, #00ACC1); }
 .lvl-red { background: linear-gradient(135deg, #EF5350, #E53935); }
 
-/* EŞLEŞTİRME */
+/* EŞLEŞTİRME RENKLERİ */
+.mc-1 { background: #42A5F5; } .mc-2 { background: #FFA726; } .mc-3 { background: #66BB6A; }
+.mc-4 { background: #EC407A; } .mc-5 { background: #AB47BC; } .mc-6 { background: #26C6DA; }
+
 .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .match-card {
     border-radius: 12px; padding: 15px 5px; text-align: center; font-weight: 700; color: white;
@@ -163,10 +183,8 @@ button:active { transform: translateY(4px); box-shadow: none; }
 .match-card:active { transform: translateY(4px); box-shadow: none; }
 .match-card.matched { visibility: hidden; }
 .match-card.selected { border-color: #333; transform: scale(0.95); }
-.mc-1 { background: #FF7043; } .mc-2 { background: #42A5F5; } .mc-3 { background: #66BB6A; }
-.mc-4 { background: #AB47BC; } .mc-5 { background: #EF5350; } .mc-6 { background: #26C6DA; }
 
-/* FLASHCARD (Düzeltilmiş Tasarım) */
+/* FLASHCARD */
 .flashcard-wrapper { perspective: 1000px; width: 100%; height: 380px; margin: 20px 0; }
 .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
 .flashcard.flipped { transform: rotateY(180deg); }
@@ -182,21 +200,26 @@ button:active { transform: translateY(4px); box-shadow: none; }
 .fc-front { justify-content: center; align-items: center; }
 .fc-main-word { font-size: 2.6rem; font-weight: 800; color: #1F2937; text-align: center; line-height: 1.2; }
 
-.fc-back { transform: rotateY(180deg); align-items: flex-start; text-align: left; }
+.fc-back { 
+    transform: rotateY(180deg); 
+    align-items: flex-start; 
+    text-align: left;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start;
+    overflow-y: auto;
+}
 .fc-header {
     width: 100%; display: flex; justify-content: space-between; align-items: center; 
     margin-bottom: 10px; border-bottom: 2px solid #F3F4F6; padding-bottom: 10px;
 }
-.fc-word-sm { font-size: 1.6rem; font-weight: 800; color: #3B82F6; flex: 1; }
+.fc-word-sm { font-size: 1.6rem; font-weight: 800; color: #1F2937; flex: 1; }
 .fc-audio-btn {
     background: #EFF6FF; border: none; width: 40px; height: 40px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
     cursor: pointer; color: #3B82F6; flex-shrink: 0;
 }
 .fc-audio-btn:active { background: #DBEAFE; }
-.fc-meaning { font-size: 1.4rem; font-weight: 700; color: #1F2937; margin-bottom: 20px; margin-top: 5px; }
-.fc-examples { background: #F9FAFB; padding: 15px; border-radius: 12px; width: 100%; border-left: 5px solid #3B82F6; margin-top: auto; margin-bottom: 10px; }
-.fc-ex-text { font-style: italic; color: #4B5563; font-size: 1rem; line-height: 1.4; }
 
 .fc-controls { display: flex; gap: 15px; margin-top: auto; padding-top: 10px; }
 .control-btn {
@@ -263,6 +286,15 @@ button:active { transform: translateY(4px); box-shadow: none; }
             <div class="streak-box">
                 <span style="font-size:2rem; display:block;">🎯🔥</span>
                 <div class="streak-count" id="streakDisplay">1 Günlük Seri!</div>
+                <div class="week-tracker" id="weekTracker">
+                    <div class="day-item"><div class="day-circle" id="day-1">✓</div><span class="day-label">P</span></div>
+                    <div class="day-item"><div class="day-circle" id="day-2">✓</div><span class="day-label">S</span></div>
+                    <div class="day-item"><div class="day-circle" id="day-3">✓</div><span class="day-label">Ç</span></div>
+                    <div class="day-item"><div class="day-circle" id="day-4">✓</div><span class="day-label">P</span></div>
+                    <div class="day-item"><div class="day-circle" id="day-5">✓</div><span class="day-label">C</span></div>
+                    <div class="day-item"><div class="day-circle" id="day-6">✓</div><span class="day-label">C</span></div>
+                    <div class="day-item"><div class="day-circle" id="day-0">✓</div><span class="day-label">P</span></div>
+                </div>
             </div>
             <h3 data-lang="work_areas" style="color:#6B7280; font-size:0.9rem; margin-bottom:10px;">ÇALIŞMA ALANLARI</h3>
             <div class="card-menu" onclick="selectCategory('KELİMELER')">
@@ -291,7 +323,7 @@ button:active { transform: translateY(4px); box-shadow: none; }
         <div class="content">
             <div class="card-menu" onclick="show('addScreen')">
                 <span class="menu-icon">📥</span>
-                <div class="menu-text"><h3 data-lang="add_data">Veri Ekle</h3><p data-lang="add_desc">Tekli veya Toplu veri girişi</p></div>
+                <div class="menu-text"><h3 data-lang="add_data">Veri Ekle</h3><p data-lang="add_desc">Toplu veri girişi</p></div>
             </div>
             <div class="card-menu" onclick="resetAllData()" style="border-color:#EF4444;">
                 <span class="menu-icon">⚠️</span>
@@ -303,7 +335,7 @@ button:active { transform: translateY(4px); box-shadow: none; }
     <div class="screen" id="addScreen">
         <div class="header">
             <button class="btn-back" onclick="show('settingsScreen')">
-                <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <svg class="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             </button>
             <span class="mini-word-art" data-lang="add_data">Veri Ekle</span>
             <div style="width:45px;"></div>
@@ -321,14 +353,15 @@ button:active { transform: translateY(4px); box-shadow: none; }
                     <option value="DEYİMLER" data-lang="idioms">Deyimler</option>
                 </select>
                 <select id="addLvl" class="input-field"><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select>
-                <input id="addEng" class="input-field" placeholder="İngilizce (Örn: Apple)">
-                <input id="addTr" class="input-field" placeholder="Türkçe (Örn: Elma)">
-                <input id="addEx" class="input-field" placeholder="Örnek cümle...">
-                <button class="control-btn btn-know" onclick="addSingle()" data-lang="save">KAYDET</button>
+                <input id="addEng" class="input-field" placeholder="İngilizce">
+                <input id="addTr" class="input-field" placeholder="Türkçe">
+                <button class="btn-green" onclick="addSingle()" data-lang="save">KAYDET</button>
             </div>
             
             <div id="bulkMode" style="display:none;">
-                <p style="color:#666; font-size:0.9rem;" data-lang="bulk_format">Format: Seviye (Enter) kelime : anlam</p>
+                <p style="color:#666; font-size:0.85rem; line-height:1.2; margin-bottom:10px;">
+                    Format: Bloklar tire çizgisi (---) ile ayrılmalıdır. Boş satırlara dikkat edin.
+                </p>
                 <select id="bulkCat" class="input-field">
                     <option value="KELİMELER" data-lang="words">Kelimeler</option>
                     <option value="KALIPLAR" data-lang="phrases">Kalıplar</option>
@@ -338,10 +371,14 @@ button:active { transform: translateY(4px); box-shadow: none; }
                 <input type="file" id="fileInput" accept=".txt" style="display:none" onchange="loadFile()">
                 <button class="btn-file-upload" onclick="document.getElementById('fileInput').click()" data-lang="btn_upload">📁 TXT Dosyası Yükle</button>
 
-                <textarea id="bulkInput" class="input-field" style="height:200px;" placeholder="A1
-apple : elma
-book : kitap"></textarea>
-                <button class="control-btn btn-know" onclick="addBulk()" data-lang="bulk_save">TOPLU KAYDET</button>
+                <textarea id="bulkInput" class="input-field" style="height:250px; font-size:0.85rem;" placeholder='apple
+elma
+You use this word to say "elma".
+This is my apple.
+Present Simple / To Be
+A1
+--------------------------------'></textarea>
+                <button class="btn-green" onclick="addBulk()" data-lang="bulk_save">TOPLU KAYDET</button>
             </div>
         </div>
     </div>
@@ -437,20 +474,8 @@ book : kitap"></textarea>
                         <div class="fc-main-word" id="fcFrontText">Word</div>
                         <div style="margin-top:20px; color:#9CA3AF; font-size:0.9rem;" data-lang="tap_flip">👆 Çevirmek için dokun</div>
                     </div>
-                    <div class="fc-face fc-back">
-                        <div class="fc-header">
-                            <div class="fc-word-sm" id="fcBackText">Word</div>
-                            <button class="fc-audio-btn" onclick="event.stopPropagation(); TTS(currentWord.eng)">🔊</button>
+                    <div class="fc-face fc-back" id="fcBackContent">
                         </div>
-                        
-                        <div class="fc-meaning" id="fcMeaning">Anlam</div>
-                        
-                        <div class="fc-examples">
-                            <div class="fc-ex-text" id="fcEx">Example...</div>
-                        </div>
-                        
-                        <div style="margin-top:auto; font-size:0.8rem; color:#999;" id="fcLevel">B2</div>
-                    </div>
                 </div>
             </div>
 
@@ -502,6 +527,8 @@ book : kitap"></textarea>
         </div>
         <div class="content">
             <canvas id="srsChart"></canvas>
+            <h3 class="mini-word-art" style="font-size:0.9rem; margin-top:20px; color:#666;">Kelime Tekrar Dağılımı</h3>
+            <canvas id="repeatChart"></canvas>
             <div class="stats-summary">
                 <div class="stat-item"><span class="stat-val" id="statTotal">0</span><span class="stat-lbl" data-lang="total">Toplam</span></div>
                 <div class="stat-item"><span class="stat-val" style="color:#22C55E;" id="statLearned">0</span><span class="stat-lbl" data-lang="learned">Öğrenilen</span></div>
@@ -517,10 +544,10 @@ book : kitap"></textarea>
 let currentLang = localStorage.getItem("WM_LANG") || "tr";
 const LANG = {
     tr: {
-        work_areas: "ÇALIŞMA ALANLARI", words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", settings: "AYARLAR", add_data: "Veri Ekle", add_desc: "Tekli veya Toplu veri girişi", reset: "Sıfırla", reset_desc: "Tüm ilerlemeyi sil", add_single: "Tekli Ekle", add_bulk: "Toplu Ekle", save: "KAYDET", bulk_save: "TOPLU KAYDET", bulk_format: "Format: Seviye (Enter) kelime : anlam", games: "Oyunlar", quiz_game: "Test (Quiz)", quiz_desc: "10 Soru", match_game: "Eşleştirme", match_desc: "5 Çift", flash_game: "Kartlar", flash_desc: "10 Kart", progress: "Gelişim", smart_review: "Akıllı Tekrar", srs_desc: "SRS ve Bilinmeyenler", stats: "İstatistikler", stats_desc: "Gelişim raporu", question: "Soru", card: "Kart", tap_flip: "👆 Çevirmek için dokun", know: "Biliyorum", dont_know: "Bilmiyorum", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", study_unknown_desc: "Henüz öğrenilmeyenler", daily_review: "Günlük Tekrar (SRS)", daily_review_desc: "Unutmak üzere oldukların", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen", msg_perfect: "Mükemmel! Hepsini bildin. 🎉", msg_good: "Çok iyisin! 💪", msg_avg: "Güzel, ama tekrar yapmalısın. 👍", msg_bad: "Daha çok çalışmalısın. 📚", streak: "Günlük Seri!", alert_min: "Bu mod için en az {n} kelime gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} kelime eklendi!", alert_reset: "Her şey silinecek?", alert_no_unknown: "Bilinmeyen kelime kalmadı!", alert_no_srs: "Tekrar zamanı gelen yok.", btn_upload: "📁 TXT Dosyası Yükle", file_loaded: "Dosya Yüklendi!"
+        work_areas: "ÇALIŞMA ALANLARI", words: "Kelimeler", words_desc: "Kelime hazineni geliştir", phrases: "Kalıplar", phrases_desc: "Günlük konuşma yapıları", idioms: "Deyimler", idioms_desc: "İleri seviye ifadeler", settings: "AYARLAR", add_data: "Veri Ekle", add_desc: "Toplu veri girişi", reset: "Sıfırla", reset_desc: "Tüm ilerlemeyi sil", add_single: "Tekli Ekle", add_bulk: "Toplu Ekle", save: "KAYDET", bulk_save: "TOPLU KAYDET", games: "Oyunlar", quiz_game: "Test (Quiz)", quiz_desc: "10 Soru", match_game: "Eşleştirme", match_desc: "5 Çift", flash_game: "Kartlar", flash_desc: "10 Kart", progress: "Gelişim", smart_review: "Akıllı Tekrar", srs_desc: "SRS ve Bilinmeyenler", stats: "İstatistikler", stats_desc: "Gelişim raporu", question: "Soru", card: "Kart", tap_flip: "👆 Çevirmek için dokun", know: "Biliyorum", dont_know: "Bilmiyorum", success_rate: "BAŞARI ORANI", continue: "DEVAM ET", study_unknown: "Bilinmeyenleri Çalış", study_unknown_desc: "Henüz öğrenilmeyenler", daily_review: "Günlük Tekrar (SRS)", daily_review_desc: "Unutmak üzere oldukların", total: "Toplam", learned: "Öğrenilen", unknown: "Bilinmeyen", msg_perfect: "Mükemmel! Hepsini bildin. 🎉", msg_good: "Çok iyisin! 💪", msg_avg: "Güzel, ama tekrar yapmalısın. 👍", msg_bad: "Daha çok çalışmalısın. 📚", streak: "Günlük Seri!", alert_min: "Bu mod için en az {n} kelime gerekli.", alert_added: "Eklendi!", alert_bulk_added: "{n} kelime eklendi!", alert_reset: "Her şey silinecek?", alert_no_unknown: "Bilinmeyen kelime kalmadı!", alert_no_srs: "Tekrar zamanı gelen yok.", btn_upload: "📁 TXT Dosyası Yükle", file_loaded: "Dosya Yüklendi!"
     },
     en: {
-        work_areas: "STUDY AREAS", words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily speech patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", settings: "SETTINGS", add_data: "Add Data", add_desc: "Single or Bulk entry", reset: "Reset", reset_desc: "Delete all progress", add_single: "Single Add", add_bulk: "Bulk Add", save: "SAVE", bulk_save: "BULK SAVE", bulk_format: "Format: Level (Enter) word : meaning", games: "Games", quiz_game: "Quiz", quiz_desc: "10 Questions", match_game: "Match", match_desc: "5 Pairs", flash_game: "Cards", flash_desc: "10 Cards", progress: "Progress", smart_review: "Smart Review", srs_desc: "SRS & Unknowns", stats: "Statistics", stats_desc: "Progress report", question: "Question", card: "Card", tap_flip: "👆 Tap to flip", know: "I Know", dont_know: "Don't Know", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", study_unknown_desc: "Not learned yet", daily_review: "Daily Review (SRS)", daily_review_desc: "Due for review", total: "Total", learned: "Learned", unknown: "Unknown", msg_perfect: "Perfect! You knew them all. 🎉", msg_good: "Great job! 💪", msg_avg: "Good, but needs review. 👍", msg_bad: "Keep practicing. 📚", streak: "Day Streak!", alert_min: "Need at least {n} words.", alert_added: "Added!", alert_bulk_added: "{n} words added!", alert_reset: "Delete everything?", alert_no_unknown: "No unknown words left!", alert_no_srs: "No reviews due.", btn_upload: "📁 Upload TXT File", file_loaded: "File Loaded!"
+        work_areas: "STUDY AREAS", words: "Words", words_desc: "Build vocabulary", phrases: "Phrases", phrases_desc: "Daily speech patterns", idioms: "Idioms", idioms_desc: "Advanced expressions", settings: "SETTINGS", add_data: "Add Data", add_desc: "Bulk data entry", reset: "Reset", reset_desc: "Delete all progress", add_single: "Single Add", add_bulk: "Bulk Add", save: "SAVE", bulk_save: "BULK SAVE", games: "Games", quiz_game: "Quiz", quiz_desc: "10 Questions", match_game: "Match", match_desc: "5 Pairs", flash_game: "Cards", flash_desc: "10 Cards", progress: "Progress", smart_review: "Smart Review", srs_desc: "SRS & Unknowns", stats: "Statistics", stats_desc: "Progress report", question: "Question", card: "Card", tap_flip: "👆 Tap to flip", know: "I Know", dont_know: "Don't Know", success_rate: "SUCCESS RATE", continue: "CONTINUE", study_unknown: "Study Unknowns", study_unknown_desc: "Not learned yet", daily_review: "Daily Review (SRS)", daily_review_desc: "Due for review", total: "Total", learned: "Learned", unknown: "Unknown", msg_perfect: "Perfect! You knew them all. 🎉", msg_good: "Great job! 💪", msg_avg: "Good, but needs review. 👍", msg_bad: "Keep practicing. 📚", streak: "Day Streak!", alert_min: "Need at least {n} words.", alert_added: "Added!", alert_bulk_added: "{n} words added!", alert_reset: "Delete everything?", alert_no_unknown: "No unknown words left!", alert_no_srs: "No reviews due.", btn_upload: "📁 Upload TXT File", file_loaded: "File Loaded!"
     }
 };
 
@@ -535,10 +562,6 @@ function applyLanguage() {
         let key = el.getAttribute("data-lang");
         if(LANG[currentLang][key]) el.innerText = LANG[currentLang][key];
     });
-    let ph = currentLang === "tr" ? "İngilizce" : "English";
-    if(document.getElementById("addEng")) document.getElementById("addEng").placeholder = ph;
-    ph = currentLang === "tr" ? "Türkçe" : "Turkish";
-    if(document.getElementById("addTr")) document.getElementById("addTr").placeholder = ph;
     checkStreak();
 }
 
@@ -547,7 +570,7 @@ const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
 let DATA = {}, SRS_DATA = {};
 let activeCat = "", activeLvl = "";
 let gamePool = [], currentIndex = 0, currentWord = null;
-let matchSelected = null, chartInstance = null;
+let matchSelected = null, chartInstance = null, repeatChartInstance = null;
 const ONE_DAY = 24 * 60 * 60 * 1000;
 const SRS_INTERVALS = [ONE_DAY, 3*ONE_DAY, 7*ONE_DAY, 15*ONE_DAY, 30*ONE_DAY];
 let sessionCorrect = 0, sessionTotal = 0;
@@ -574,14 +597,21 @@ function saveDB() {
 
 function checkStreak() {
     let last = localStorage.getItem("LAST_VISIT"), streak = parseInt(localStorage.getItem("STREAK")||0);
-    let today = new Date().toDateString();
-    if(last !== today) {
+    let todayDate = new Date();
+    let todayStr = todayDate.toDateString();
+    
+    if(last !== todayStr) {
         let yest = new Date(); yest.setDate(yest.getDate()-1);
         streak = (last === yest.toDateString()) ? streak + 1 : 1;
-        localStorage.setItem("LAST_VISIT", today);
+        localStorage.setItem("LAST_VISIT", todayStr);
         localStorage.setItem("STREAK", streak);
     }
     document.getElementById("streakDisplay").innerText = streak + " " + LANG[currentLang].streak;
+
+    // YENİ: Bugünün dairesini işaretle
+    let dayOfWeek = todayDate.getDay(); 
+    let targetCircle = document.getElementById("day-" + dayOfWeek);
+    if(targetCircle) targetCircle.classList.add("active");
 }
 
 function show(id) {
@@ -596,20 +626,13 @@ function selectCategory(cat) {
     const lvlClasses = ["lvl-blue", "lvl-orange", "lvl-green", "lvl-pink", "lvl-purple", "lvl-cyan"];
     LEVELS.forEach((l, i) => {
         let count = DATA[cat][l].length;
-        grid.innerHTML += `
-            <button class="level-btn ${lvlClasses[i]}" onclick="selectLevel('${l}')">
-                ${l} <small>(${count})</small>
-            </button>`;
+        grid.innerHTML += `<button class="level-btn ${lvlClasses[i]}" onclick="selectLevel('${l}')">${l} <small>(${count})</small></button>`;
     });
     document.getElementById("catTitle").innerText = cat;
     show('levelScreen');
 }
 
-function selectLevel(l) {
-    activeLvl = l;
-    document.getElementById("dashTitle").innerText = l;
-    show('dashboardScreen');
-}
+function selectLevel(l) { activeLvl = l; document.getElementById("dashTitle").innerText = l; show('dashboardScreen'); }
 
 function initGame(mode) {
     let pool = DATA[activeCat][activeLvl];
@@ -617,7 +640,7 @@ function initGame(mode) {
     if(!pool || pool.length < minReq) return alert(LANG[currentLang].alert_min.replace("{n}", minReq));
     let count = (mode === 'match') ? 5 : 10;
     gamePool = [...pool].sort(() => 0.5 - Math.random()).slice(0, count);
-    currentIndex = 0; sessionCorrect = 0; sessionTotal = gamePool.length;
+    currentIndex = 0; sessionCorrect = 0; sessionTotal = 0; // Toplam sayaç sıfırlanıyor
     if(mode === 'quiz') { show('quizScreen'); renderQuiz(); }
     else if(mode === 'match') { show('matchScreen'); renderMatch(); }
     else { show('flashScreen'); renderFlash(); }
@@ -627,16 +650,23 @@ function renderFlash() {
     if(currentIndex >= gamePool.length) return finishGameWithResult();
     currentWord = gamePool[currentIndex];
     document.getElementById("fcCounter").innerText = (currentIndex + 1);
-    let card = document.getElementById("fcCard"); card.classList.remove("flipped");
+    let card = document.getElementById("fcCard"); 
+    card.classList.remove("flipped");
     document.getElementById("fcFrontText").innerText = currentWord.eng;
-    document.getElementById("fcBackText").innerText = currentWord.eng;
-    document.getElementById("fcMeaning").innerText = currentWord.tr;
-    document.getElementById("fcEx").innerText = currentWord.ex || "";
-    document.getElementById("fcLevel").innerText = activeLvl;
+    const backFace = document.getElementById('fcBackContent');
+    backFace.innerHTML = `
+        <div class="fc-header"><div class="fc-word-sm" style="color:#1F2937;">${currentWord.eng}</div><button class="fc-audio-btn" onclick="event.stopPropagation(); TTS(currentWord.eng)">🔊</button></div>
+        <div class="fc-meaning" style="margin-bottom:15px; font-weight:800; color:#3B82F6; font-size:1.4rem;">${currentWord.tr || ''}</div>
+        <div style="margin-bottom:15px; font-style:italic; color:#4B5563; font-size:1rem; line-height:1.4;">"${currentWord.ex || ''}"</div>
+        <div style="background:#F3F4F6; display:inline-block; padding:2px 8px; border-radius:6px; font-weight:800; color:#6B7280; font-size:0.75rem;">${currentWord.lvl || activeLvl}</div>
+        <div style="margin-top:auto;"></div>
+    `;
     TTS(currentWord.eng);
 }
+
 function flipCard() { document.getElementById("fcCard").classList.toggle("flipped"); }
 function nextCard(known) {
+    sessionTotal++;
     if(known) sessionCorrect++;
     updateSRS(currentWord, known);
     currentIndex++; renderFlash();
@@ -651,11 +681,10 @@ function renderQuiz() {
     let opts = [currentWord.tr], all = DATA[activeCat][activeLvl].map(w => w.tr);
     while(opts.length < 4) { let r = all[Math.floor(Math.random()*all.length)]; if(!opts.includes(r)) opts.push(r); }
     opts.sort(() => 0.5 - Math.random());
-    let html = "";
-    opts.forEach(opt => { html += `<div class="quiz-opt" onclick="checkQuiz(this, '${opt}')">${opt}</div>`; });
-    document.getElementById("qOptions").innerHTML = html;
+    document.getElementById("qOptions").innerHTML = opts.map(opt => `<div class="quiz-opt" onclick="checkQuiz(this, '${opt}')">${opt}</div>`).join("");
 }
 function checkQuiz(btn, ans) {
+    sessionTotal++;
     if(ans === currentWord.tr) {
         btn.classList.add("correct"); sessionCorrect++; updateSRS(currentWord, true);
         setTimeout(() => { currentIndex++; renderQuiz(); }, 800);
@@ -669,16 +698,14 @@ function checkQuiz(btn, ans) {
 
 function renderMatch() {
     let items = [];
-    gamePool.forEach(w => { items.push({ id: w.eng, text: w.eng }); items.push({ id: w.eng, text: w.tr }); });
+    let matchPool = gamePool.slice(0, 5);
+    matchPool.forEach(w => { items.push({ id: w.eng, text: w.eng }); items.push({ id: w.eng, text: w.tr }); });
     items.sort(() => 0.5 - Math.random());
     let grid = document.getElementById("matchGrid"); grid.innerHTML = "";
-    const colors = ["mc-1", "mc-2", "mc-3", "mc-4", "mc-5"];
     items.forEach((item, i) => {
         let div = document.createElement("div");
-        let randColor = colors[Math.floor(Math.random() * colors.length)];
-        div.className = "match-card " + randColor;
-        div.innerText = item.text;
-        div.dataset.id = item.id;
+        div.className = "match-card mc-" + ((i % 6) + 1); // Renkler mc- sınıflarından geliyor
+        div.innerText = item.text; div.dataset.id = item.id;
         div.onclick = () => handleMatch(div);
         grid.appendChild(div);
     });
@@ -688,32 +715,22 @@ function handleMatch(el) {
     el.classList.add("selected");
     if(!matchSelected) { matchSelected = el; } 
     else {
+        sessionTotal++;
         if(matchSelected.dataset.id === el.dataset.id) {
             matchSelected.classList.remove("selected"); el.classList.remove("selected");
             matchSelected.classList.add("matched"); el.classList.add("matched");
             matchSelected = null; sessionCorrect++;
             if(document.querySelectorAll('.match-card:not(.matched)').length === 0) finishGameWithResult();
         } else {
-            setTimeout(() => {
-                matchSelected.classList.remove("selected"); el.classList.remove("selected");
-                matchSelected = null;
-            }, 500);
+            setTimeout(() => { matchSelected.classList.remove("selected"); el.classList.remove("selected"); matchSelected = null; }, 500);
         }
     }
 }
 
 function finishGameWithResult() {
-    let percentage = Math.round((sessionCorrect / sessionTotal) * 100);
-    let resultBox = document.querySelector('.result-box');
-    if(percentage >= 80) resultBox.style.background = "linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%)";
-    else if(percentage >= 50) resultBox.style.background = "linear-gradient(135deg, #FF9800 0%, #F57C00 100%)";
-    else resultBox.style.background = "linear-gradient(135deg, #EF4444 0%, #C62828 100%)";
+    let percentage = Math.round((sessionCorrect / sessionTotal) * 100) || 0;
     document.getElementById("resultScore").innerText = `%${percentage}`;
-    let msg = "";
-    if(percentage === 100) msg = LANG[currentLang].msg_perfect;
-    else if(percentage >= 80) msg = LANG[currentLang].msg_good;
-    else if(percentage >= 50) msg = LANG[currentLang].msg_avg;
-    else msg = LANG[currentLang].msg_bad;
+    let msg = percentage >= 80 ? LANG[currentLang].msg_perfect : (percentage >= 50 ? LANG[currentLang].msg_good : LANG[currentLang].msg_bad);
     document.getElementById("resultMsg").innerText = msg;
     show('resultScreen');
 }
@@ -730,86 +747,84 @@ function addSingle() {
     let cat = document.getElementById("addCat").value, lvl = document.getElementById("addLvl").value;
     let eng = document.getElementById("addEng").value.trim(), tr = document.getElementById("addTr").value.trim();
     if(!eng || !tr) return alert("Eksik bilgi!");
-    DATA[cat][lvl].push({eng, tr, ex: document.getElementById("addEx").value.trim()});
-    SRS_DATA[eng] = { stage: 0, nextDate: 0 };
+    DATA[cat][lvl].push({eng, tr, lvl: lvl, ex: "", def: "", grammar: ""});
+    SRS_DATA[eng] = { stage: 0, nextDate: 0, repeats: 0 };
     saveDB(); alert(LANG[currentLang].alert_added);
-    document.getElementById("addEng").value=""; document.getElementById("addTr").value=""; document.getElementById("addEx").value="";
 }
+
 function addBulk() {
-    let text = document.getElementById("bulkInput").value.trim();
-    if(!text) return;
-    let cat = document.getElementById("bulkCat").value, currentLvl = null, count = 0;
-    text.split("\n").forEach(l => {
-        l = l.trim();
-        if(LEVELS.includes(l)) currentLvl = l;
-        else if(currentLvl && l.includes(":")) {
-            let p = l.split(":");
-            if(p.length >= 2) {
-                DATA[cat][currentLvl].push({ eng: p[0].trim(), tr: p[1].trim(), ex: "" });
-                SRS_DATA[p[0].trim()] = { stage: 0, nextDate: 0 };
+    const text = document.getElementById("bulkInput").value.trim();
+    if (!text) return;
+    const blocks = text.split(/--------------------------------/);
+    let count = 0;
+    blocks.forEach(block => {
+        const lines = block.trim().split("\n").map(l => l.trim()).filter(l => l !== "");
+        if (lines.length >= 6) {
+            let entry = { eng: lines[0], tr: lines[1], def: lines[2], ex: lines[3], grammar: lines[4], lvl: lines[5].toUpperCase() };
+            if (LEVELS.includes(entry.lvl)) {
+                DATA[document.getElementById("bulkCat").value][entry.lvl].push(entry);
+                SRS_DATA[entry.eng] = { stage: 0, nextDate: 0, repeats: 0 };
                 count++;
             }
         }
     });
-    saveDB(); alert(LANG[currentLang].alert_bulk_added.replace("{n}", count)); document.getElementById("bulkInput").value="";
+    saveDB(); alert(LANG[currentLang].alert_bulk_added.replace("{n}", count));
 }
 
-/* === DOSYA YÜKLEME === */
 function loadFile() {
     const input = document.getElementById('fileInput');
     if(input.files && input.files[0]) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('bulkInput').value = e.target.result;
-            alert(LANG[currentLang].file_loaded);
-        };
+        reader.onload = e => { document.getElementById('bulkInput').value = e.target.result; alert(LANG[currentLang].file_loaded); };
         reader.readAsText(input.files[0]);
     }
 }
 
 function updateSRS(w, c) {
-    if(!SRS_DATA[w.eng]) SRS_DATA[w.eng] = { stage: 0, nextDate: 0 };
+    if(!SRS_DATA[w.eng]) SRS_DATA[w.eng] = { stage: 0, nextDate: 0, repeats: 0 };
     if(c) {
         let s = SRS_DATA[w.eng].stage;
         SRS_DATA[w.eng].nextDate = Date.now() + (SRS_INTERVALS[s] || SRS_INTERVALS[4]);
         if(s < 4) SRS_DATA[w.eng].stage++;
-    } else { SRS_DATA[w.eng].stage = 0; SRS_DATA[w.eng].nextDate = 0; }
+        SRS_DATA[w.eng].repeats = (SRS_DATA[w.eng].repeats || 0) + 1; // Başarılı tekrarları say
+    } else { 
+        SRS_DATA[w.eng].stage = 0; // Yanlışsa başa döner -> Bilinmeyenler havuzu
+        SRS_DATA[w.eng].nextDate = 0; 
+    }
     saveDB();
 }
 function startUnknownGame() {
-    let pool = DATA[activeCat][activeLvl].filter(w => { let s = SRS_DATA[w.eng]; return !s || s.stage === 0; });
-    if(pool.length === 0) return alert(LANG[currentLang].alert_no_unknown);
-    gamePool = pool.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; 
-    sessionCorrect = 0; sessionTotal = gamePool.length;
-    show('flashScreen'); renderFlash();
+    let pool = []; for(let c in DATA) for(let l in DATA[c]) pool = pool.concat(DATA[c][l]);
+    let target = pool.filter(w => !SRS_DATA[w.eng] || SRS_DATA[w.eng].stage === 0);
+    if(target.length === 0) return alert(LANG[currentLang].alert_no_unknown);
+    gamePool = target.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; sessionCorrect = 0; sessionTotal = 0; show('flashScreen'); renderFlash();
 }
 function startSRSGame() {
-    let now = Date.now();
-    let pool = DATA[activeCat][activeLvl].filter(w => { let s = SRS_DATA[w.eng]; return s && s.stage > 0 && s.nextDate <= now; });
-    if(pool.length === 0) return alert(LANG[currentLang].alert_no_srs);
-    gamePool = pool.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; 
-    sessionCorrect = 0; sessionTotal = gamePool.length;
-    show('quizScreen'); renderQuiz();
+    let pool = []; for(let c in DATA) for(let l in DATA[c]) pool = pool.concat(DATA[c][l]);
+    let target = pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0 && SRS_DATA[w.eng].nextDate <= Date.now());
+    if(target.length === 0) return alert(LANG[currentLang].alert_no_srs);
+    gamePool = target.sort(() => 0.5 - Math.random()).slice(0, 10); currentIndex = 0; sessionCorrect = 0; sessionTotal = 0; show('quizScreen'); renderQuiz();
 }
+
 function showChartScreen() {
     show('chartScreen');
-    let ctx = document.getElementById("srsChart");
-    let stages = [0,0,0,0,0,0], pool = DATA[activeCat][activeLvl], total = pool.length, learned = 0;
+    let pool = []; for(let c in DATA) for(let l in DATA[c]) pool = pool.concat(DATA[c][l]);
+    let stages = [0,0,0,0,0,0], repeatData = { r1:0, r3:0, r5:0, r7:0, r15:0 };
     pool.forEach(w => {
         let s = SRS_DATA[w.eng] ? SRS_DATA[w.eng].stage : 0; stages[s]++;
-        if(s > 0) learned++;
+        let rep = SRS_DATA[w.eng] ? (SRS_DATA[w.eng].repeats || 0) : 0;
+        if(rep >= 15) repeatData.r15++; else if(rep >= 7) repeatData.r7++; else if(rep >= 5) repeatData.r5++; else if(rep >= 3) repeatData.r3++; else if(rep >= 1) repeatData.r1++;
     });
-    document.getElementById("statTotal").innerText = total;
-    document.getElementById("statLearned").innerText = learned;
-    document.getElementById("statUnknown").innerText = total - learned;
+    
+    document.getElementById("statTotal").innerText = pool.length;
+    document.getElementById("statLearned").innerText = pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0).length;
+    document.getElementById("statUnknown").innerText = pool.length - pool.filter(w => SRS_DATA[w.eng] && SRS_DATA[w.eng].stage > 0).length;
+
     if(chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['New', '1D', '3D', '7D', '15D', '30D'],
-            datasets: [{ label: 'Count', data: stages, backgroundColor: ['#EF4444', '#3B82F6', '#60A5FA', '#34D399', '#F59E0B', '#10B981'] }]
-        }
-    });
+    chartInstance = new Chart(document.getElementById("srsChart"), { type: 'bar', data: { labels: ['New', '1D', '3D', '7D', '15D', '30D'], datasets: [{ label: 'Count', data: stages, backgroundColor: '#3B82F6' }] }});
+    
+    if(repeatChartInstance) repeatChartInstance.destroy();
+    repeatChartInstance = new Chart(document.getElementById("repeatChart"), { type: 'line', data: { labels: ['1 Rep', '3 Rep', '5 Rep', '7 Rep', '15+ Rep'], datasets: [{ label: 'Words', data: [repeatData.r1, repeatData.r3, repeatData.r5, repeatData.r7, repeatData.r15], borderColor: '#22C55E', backgroundColor: 'rgba(34,197,94,0.1)', fill: true }] }});
 }
 function TTS(t) { let u = new SpeechSynthesisUtterance(t); u.lang='en-US'; window.speechSynthesis.speak(u); }
 function resetAllData() { if(confirm(LANG[currentLang].alert_reset)) { localStorage.clear(); location.reload(); } }
