@@ -351,6 +351,17 @@ button:active { transform: translateY(4px); box-shadow: none; }
                 <span class="menu-icon">📥</span>
                 <div class="menu-text"><h3 data-lang="add_data">Veri Ekle</h3><p data-lang="add_desc">Toplu veri girişi</p></div>
             </div>
+            
+            <div class="card-menu" onclick="exportBackup()" style="border-color:var(--success);">
+                <span class="menu-icon">📤</span>
+                <div class="menu-text"><h3 style="color:var(--success);">Yedek Al</h3><p>Verileri JSON olarak indir</p></div>
+            </div>
+            <div class="card-menu" onclick="document.getElementById('backupInput').click()" style="border-color:var(--primary);">
+                <span class="menu-icon">💾</span>
+                <div class="menu-text"><h3 style="color:var(--primary);">Yedeği Yükle</h3><p>JSON dosyasından geri yükle</p></div>
+                <input type="file" id="backupInput" accept=".json" style="display:none" onchange="importBackup(this)">
+            </div>
+
             <div class="card-menu" onclick="resetAllData()" style="border-color:#EF4444;">
                 <span class="menu-icon">⚠️</span>
                 <div class="menu-text"><h3 style="color:#EF4444;" data-lang="reset">Sıfırla</h3><p data-lang="reset_desc">Tüm ilerlemeyi sil</p></div>
@@ -994,6 +1005,52 @@ function updateLevelStats() {
     document.getElementById("levelProgressBar").style.width = `${percent}%`;
     document.getElementById("lvlLearned").innerText = learned;
     document.getElementById("lvlUnknown").innerText = total - learned;
+}
+
+/* === JSON YEDEKLEME FONKSİYONLARI === */
+function exportBackup() {
+    const backupData = {
+        DATA: DATA,
+        SRS_DATA: SRS_DATA,
+        STREAK: localStorage.getItem("STREAK"),
+        LAST_VISIT: localStorage.getItem("LAST_VISIT"),
+        version: "v18.2"
+    };
+    const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `WordMaster_Backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function importBackup(input) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+            if (imported.DATA && imported.SRS_DATA) {
+                if (confirm("Bu işlem mevcut tüm verilerinizin üzerine yazılacaktır. Devam etmek istiyor musunuz?")) {
+                    DATA = imported.DATA;
+                    SRS_DATA = imported.SRS_DATA;
+                    if (imported.STREAK) localStorage.setItem("STREAK", imported.STREAK);
+                    if (imported.LAST_VISIT) localStorage.setItem("LAST_VISIT", imported.LAST_VISIT);
+                    saveDB();
+                    alert("Yedek başarıyla yüklendi! Uygulama yenileniyor...");
+                    location.reload();
+                }
+            } else {
+                alert("Geçersiz yedek dosyası!");
+            }
+        } catch (err) {
+            alert("Dosya okunurken bir hata oluştu: " + err);
+        }
+    };
+    reader.readAsText(input.files[0]);
 }
 </script>
 </body>
