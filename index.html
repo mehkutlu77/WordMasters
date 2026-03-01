@@ -1508,34 +1508,30 @@ function renderFlash() {
 
     // ÖN YÜZ
     const fcFront = document.getElementById("fcFront");
-    fcFront.style.alignItems = 'flex-start';
-    fcFront.style.justifyContent = 'flex-start';
-    fcFront.style.padding = '22px 22px';
+    fcFront.style.alignItems = 'center';
+    fcFront.style.justifyContent = 'center';
+    fcFront.style.padding = '28px 24px';
     fcFront.innerHTML = `
-        <div style="margin-bottom:20px;">
-            <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;">
-                English — Turkish
-            </div>
-            <div style="font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--lvl-dark);line-height:1.15;">
-                ${currentWord.eng || ''}
-            </div>
-            ${currentWord.typeEn ? `<div style="font-size:.76rem;color:var(--muted);font-style:italic;margin-top:4px;">${currentWord.typeEn}</div>` : ''}
+        <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);margin-bottom:10px;text-align:center;">
+            English — Turkish
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start;">
-            <div id="fcMeaningArea">
-                <button id="btnShowMeaning"
-                    onclick="event.stopPropagation(); showCardMeaning()"
-                    style="padding:7px 18px;background:transparent;border:1.5px solid var(--lvl-main);color:var(--lvl-main);border-radius:20px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;">
-                    <span style="width:7px;height:7px;background:var(--lvl-main);border-radius:50%;flex-shrink:0;"></span>
-                    Anlamı gör
-                </button>
-            </div>
-            <button onclick="event.stopPropagation(); TTS(currentWord.eng)"
-                style="padding:7px 18px;background:transparent;border:1.5px solid var(--border);color:var(--text);border-radius:20px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:5px;">
-                🔊 Telaffuz
-            </button>
+        <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--lvl-main);line-height:1.1;text-align:center;margin-bottom:5px;">
+            ${currentWord.eng || ''}
         </div>
-        <div class="card-hint" style="margin-top:auto;padding-top:12px;align-self:center;">Detay için kartı çevir 👆</div>
+        ${currentWord.typeEn ? `<div style="font-size:.8rem;color:var(--muted);font-style:italic;text-align:center;margin-bottom:14px;">${currentWord.typeEn}</div>` : '<div style="margin-bottom:14px;"></div>'}
+        <div id="fcMeaningArea" style="text-align:center;min-height:34px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+        </div>
+        <button id="btnShowMeaning"
+            onclick="event.stopPropagation(); showCardMeaning()"
+            style="width:auto;padding:5px 16px;background:transparent;border:1.5px solid var(--lvl-main);color:var(--lvl-main);border-radius:20px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:5px;margin:0 0 10px 0;white-space:nowrap;">
+            <span style="width:6px;height:6px;background:var(--lvl-main);border-radius:50%;flex-shrink:0;"></span>
+            Anlamı gör
+        </button>
+        <button onclick="event.stopPropagation(); TTS(currentWord.eng)"
+            style="width:auto;padding:7px 20px;background:transparent;border:1.5px solid var(--border);color:var(--text);border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;margin:0 0 10px 0;">
+            🔊 Telaffuz
+        </button>
+        <div class="card-hint" style="margin-top:2px;">Detay için kartı çevir 👆</div>
     `;
 
     updateFCBackFace();
@@ -1590,12 +1586,24 @@ function updateFCBackFace() {
 
 function showCardMeaning() {
     const area = document.getElementById('fcMeaningArea');
-    if (!area || !currentWord) return;
-    area.innerHTML = `
-        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--lvl-main);line-height:1.2;">
-            ${currentWord.tr || '—'}
-        </div>
-    `;
+    const btn  = document.getElementById('btnShowMeaning');
+    if (!area || !currentWord || !btn) return;
+
+    const isShowing = btn.dataset.showing === '1';
+    if (isShowing) {
+        // Gizle → eski hale dön
+        area.innerHTML = '';
+        btn.dataset.showing = '0';
+        btn.innerHTML = `<span style="width:6px;height:6px;background:var(--lvl-main);border-radius:50%;flex-shrink:0;"></span> Anlamı gör`;
+    } else {
+        // Göster → anlam belir
+        area.innerHTML = `
+            <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--lvl-main);line-height:1.2;text-align:center;">
+                ${currentWord.tr || '—'}
+            </div>`;
+        btn.dataset.showing = '1';
+        btn.innerHTML = `<span style="width:6px;height:6px;background:var(--lvl-main);border-radius:50%;flex-shrink:0;"></span> Gizle`;
+    }
 }
 
 function toggleCardTranslation() {
