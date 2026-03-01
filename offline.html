@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>LinguiVance — Çevrimdışı</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: linear-gradient(160deg, #f0fdf4 0%, #ffffff 60%, #f0f9ff 100%);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+             env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  }
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    max-width: 360px;
+    width: calc(100% - 48px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.10);
+    border: 1.5px solid #e2e8f0;
+  }
+  .icon { font-size: 4rem; margin-bottom: 16px; }
+  h1 { font-size: 1.4rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+  p  { font-size: .88rem; color: #64748b; line-height: 1.6; margin-bottom: 24px; }
+  .tips {
+    background: #f0fdf4;
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .tips p { margin: 0; font-size: .82rem; color: #166534; font-weight: 500; }
+  .tips span { display: block; margin-bottom: 6px; }
+  .tips span:last-child { margin-bottom: 0; }
+  button {
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    color: white; border: none; border-radius: 14px;
+    padding: 14px 28px; font-size: .95rem; font-weight: 700;
+    cursor: pointer; width: 100%;
+    font-family: inherit;
+    transition: opacity .2s;
+  }
+  button:hover { opacity: .9; }
+  .logo {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin-bottom: 24px;
+  }
+  .logo-emoji { font-size: 1.8rem; }
+  .logo-name { font-size: 1.1rem; font-weight: 700; color: #16a34a; }
+</style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="logo">
+      <span class="logo-emoji">🌍</span>
+      <span class="logo-name">LinguiVance</span>
+    </div>
+    <div class="icon" aria-hidden="true">📡</div>
+    <h1>İnternet Bağlantısı Yok</h1>
+    <p>Şu an çevrimdışısınız. İnternet bağlantınızı kontrol edin ve tekrar deneyin.</p>
+    <div class="tips" role="note" aria-label="Çevrimdışı ipuçları">
+      <p>
+        <span>✅ Önceden yüklenen içerikler kullanılabilir</span>
+        <span>✅ Kelime kartları çevrimdışı çalışır</span>
+        <span>📶 Bağlantı kurulunca otomatik devam eder</span>
+      </p>
+    </div>
+    <button onclick="window.location.href='./index.html'" aria-label="Uygulamaya geri dön">
+      🔄 Tekrar Dene
+    </button>
+  </div>
+</body>
+</html>

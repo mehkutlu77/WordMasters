@@ -1,0 +1,96 @@
+{
+  "id": "/linguivance/",
+  "name": "LinguiVance — Learn English",
+  "short_name": "LinguiVance",
+  "description": "Learn English with smart flashcards, adaptive exams, and reading modules.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#f8fafc",
+  "theme_color": "#4ade80",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "utilities"],
+  "iarc_rating_id": "",
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "LinguiVance Home Screen"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Flashcards",
+      "short_name": "Cards",
+      "description": "Practice vocabulary with flashcards",
+      "url": "./index.html#cards",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Take Exam",
+      "short_name": "Exam",
+      "description": "Test your English level",
+      "url": "./index.html#exam",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

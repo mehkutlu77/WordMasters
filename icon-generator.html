@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>LinguiVance — Icon Generator</title>
+<style>
+  body { font-family: sans-serif; background: #f0fdf4; padding: 30px; }
+  h1 { color: #16a34a; }
+  .grid { display: flex; flex-wrap: wrap; gap: 16px; margin: 24px 0; }
+  canvas { border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+  button {
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    color: white; border: none; border-radius: 12px;
+    padding: 14px 28px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; margin-top: 12px; display: block;
+  }
+  button:hover { opacity: .9; }
+  .info { background: white; border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1.5px solid #4ade80; }
+  .info code { background: #f0fdf4; padding: 2px 6px; border-radius: 4px; font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<h1>🌍 LinguiVance — Icon Generator</h1>
+
+<div class="info">
+  <strong>Nasıl kullanılır:</strong><br>
+  1. "Tüm İkonları İndir" butonuna tıklayın<br>
+  2. İndirilen PNG dosyalarını <code>icons/</code> klasörüne taşıyın<br>
+  3. Ekran görüntüsü için uygulamayı açıp tarayıcıda screenshot alın, <code>screenshots/home.png</code> olarak kaydedin
+</div>
+
+<div class="grid" id="canvasGrid"></div>
+
+<button onclick="downloadAll()">⬇️ Tüm İkonları İndir</button>
+
+<script>
+const SIZES = [72, 96, 128, 144, 152, 192, 384, 512];
+
+function drawIcon(size) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  // Maskable safe zone: %80 circle için köşe degrade
+  const r = size / 2;
+
+  // Arka plan degrade
+  const grad = ctx.createLinearGradient(0, 0, size, size);
+  grad.addColorStop(0, '#4ade80');
+  grad.addColorStop(1, '#16a34a');
+  ctx.fillStyle = grad;
+
+  // Yuvarlak köşe
+  const corner = size * 0.2;
+  ctx.beginPath();
+  ctx.moveTo(corner, 0);
+  ctx.lineTo(size - corner, 0);
+  ctx.quadraticCurveTo(size, 0, size, corner);
+  ctx.lineTo(size, size - corner);
+  ctx.quadraticCurveTo(size, size, size - corner, size);
+  ctx.lineTo(corner, size);
+  ctx.quadraticCurveTo(0, size, 0, size - corner);
+  ctx.lineTo(0, corner);
+  ctx.quadraticCurveTo(0, 0, corner, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  // Dekoratif iç daire (subtle)
+  ctx.beginPath();
+  ctx.arc(size * 0.75, size * 0.25, size * 0.35, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255,255,255,0.1)';
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(size * 0.2, size * 0.8, size * 0.25, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255,255,255,0.07)';
+  ctx.fill();
+
+  // Emoji / sembol
+  const emoji = '🌍';
+  const fontSize = Math.round(size * 0.42);
+  ctx.font = `${fontSize}px serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // Hafif gölge
+  ctx.shadowColor = 'rgba(0,0,0,0.2)';
+  ctx.shadowBlur = size * 0.04;
+  ctx.fillText(emoji, size * 0.5, size * 0.48);
+  ctx.shadowBlur = 0;
+
+  // Alt yazı (büyük ikonlarda)
+  if (size >= 192) {
+    const textSize = Math.round(size * 0.09);
+    ctx.font = `bold ${textSize}px 'Arial', sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('LinguiVance', size * 0.5, size * 0.82);
+  }
+
+  return canvas;
+}
+
+// Önizleme oluştur
+const grid = document.getElementById('canvasGrid');
+SIZES.forEach(size => {
+  const wrap = document.createElement('div');
+  wrap.style.textAlign = 'center';
+
+  const canvas = drawIcon(size);
+  canvas.title = `icon-${size}x${size}.png`;
+
+  // Küçük ikonları 2x göster
+  const displaySize = Math.max(size, 72);
+  canvas.style.width = displaySize + 'px';
+  canvas.style.height = displaySize + 'px';
+  canvas.style.imageRendering = 'pixelated';
+
+  const label = document.createElement('div');
+  label.style.cssText = 'font-size:.75rem;color:#64748b;margin-top:6px;font-weight:600;';
+  label.textContent = `${size}×${size}`;
+
+  wrap.appendChild(canvas);
+  wrap.appendChild(label);
+  grid.appendChild(wrap);
+});
+
+function downloadAll() {
+  SIZES.forEach((size, i) => {
+    setTimeout(() => {
+      const canvas = drawIcon(size);
+      const a = document.createElement('a');
+      a.download = `icon-${size}x${size}.png`;
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }, i * 200);
+  });
+}
+</script>
+</body>
+</html>

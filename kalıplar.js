@@ -1,0 +1,2399 @@
+const WORD_DATA = [
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Hello"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am fine"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t What is your name? : Adın ne?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t My name is Ahmet. : Benim adım Ahmet."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Nice to meet you. : Tanıştığımıza memnun oldum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Where are you from? : Nerelisin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am from Turkey. : Türkiyeliyim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t How old are you? : Kaç yaşındasın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am twenty years old. : Yirmi yaşındayım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am a student. : Ben bir öğrenciyim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He is my friend. : O benim arkadaşım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She is a doctor. : O bir doktor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Are you married? : Evli misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t No"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t What is your job? : Mesleğin ne?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t This is a book. : Bu bir kitaptır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t That is a car. : Şu bir arabadır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t The cat is on the chair. : Kedi sandalyenin üzerinde."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t The dog is under the table. : Köpek masanın altında."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I have a brother. : Bir erkek kardeşim var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She has a sister. : Onun bir kız kardeşi var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t We have a big house. : Bizim büyük bir evimiz var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t They have a nice garden. : Onların güzel bir bahçesi var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Do you have a pen? : Kalemin var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I don't have any money. : Hiç param yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Has she got a car? : Onun arabası var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t There is an apple on the desk. : Sırada bir elma var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t There are two birds in the tree. : Ağaçta iki kuş var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Is there a bank near here? : Buralarda bir banka var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t There isn't any milk in the fridge. : Buzdolabında hiç süt yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I wake up early every day. : Her gün erken uyanırım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I wash my face. : Yüzümü yıkarım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He brushes his teeth. : O dişlerini fırçalar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t We eat breakfast at  o'clock. : Saat 'de kahvaltı yaparız."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I go to work by bus. : İşe otobüsle giderim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She walks to school. : O okula yürüyerek gider."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Do you drink coffee? : Kahve içer misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I don't smoke. : Sigara içmem."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He doesn't like football. : O futbolu sevmez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t They live in Istanbul. : Onlar İstanbul'da yaşarlar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t My father works in a factory. : Babam bir fabrikada çalışır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Does she speak English? : O İngilizce konuşur mu?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t We watch TV in the evenings. : Akşamları televizyon izleriz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I read a book before sleep. : Uyumadan önce kitap okurum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t It rains a lot in winter. : Kışın çok yağmur yağar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I can swim. : Yüzebilirim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She can play the piano. : O piyano çalabilir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Can you help me? : Bana yardım edebilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I can't speak Spanish. : İspanyolca konuşamam."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Can I open the window? : Pencereyi açabilir miyim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t You can sit here. : Buraya oturabilirsin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Can we go now? : Şimdi gidebilir miyiz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He can run very fast. : O çok hızlı koşabilir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Can you give me that book? : Şu kitabı bana verebilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I can't hear you. : Seni duyamıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am reading a book now. : Şu an kitap okuyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She is sleeping at the moment. : O şu anda uyuyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t They are playing football in the park. : Onlar parkta futbol oynuyorlar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Are you listening to me? : Beni dinliyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t We are going to the cinema. : Sinemaya gidiyoruz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He is not working today. : O bugün çalışmıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t What are you doing? : Ne yapıyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Is it raining outside? : Dışarıda yağmur yağıyor mu?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am waiting for the bus. : Otobüsü bekliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She is cooking dinner. : O akşam yemeği pişiriyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am very happy today. : Bugün çok mutluyum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He is sad. : O üzgün."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Are you tired? : Yorgun musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t This room is very hot. : Bu oda çok sıcak."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t The water is cold. : Su soğuk."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t My car is blue. : Arabam mavidir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Her dress is red. : Onun elbisesi kırmızıdır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t This problem is easy. : Bu problem kolay."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t English is important. : İngilizce önemlidir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t The film was boring. : Film sıkıcıydı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I am hungry. : Açım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t She is thirsty. : O susadı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Are you afraid? : Korkuyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t This box is heavy. : Bu kutu ağır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t He is a rich man. : O zengin bir adam."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t What time is it? : Saat kaç?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t It is five o'clock. : Saat beş."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t What day is it today? : Bugün günlerden ne?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Today is Monday. : Bugün Pazartesi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t When is your birthday? : Doğum günün ne zaman?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Where is the bathroom? : Tuvalet nerede?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Turn right. : Sağa dön."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Go straight ahead. : Dümdüz git."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t It is on the left. : Sol tarafta."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t The hospital is next to the bank. : Hastane bankanın bitişiğinde."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I would like a coffee"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t How much does it cost? : Bunun fiyatı ne kadar?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Can I pay by card? : Kartla ödeyebilir miyim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t This is too expensive. : Bu çok pahalı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Do you have a smaller size? : Daha küçük bedeni var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t I need some water. : Biraz suya ihtiyacım var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Where can I buy a ticket? : Nereden bilet alabilirim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t The bill"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t Here you are. : Buyurun (bir şey verirken)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A1\t:\t See you later. : Sonra görüşürüz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I used to play football when I was a child. : Çocukken futbol oynardım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Did you watch the match last night? : Dün gece maçı izledin mi?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I didn't go to work yesterday because I was sick. : Dün işe gitmedim çünkü hastaydım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t We were having dinner when you called. : Sen aradığında biz akşam yemeği yiyorduk."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She was reading a book at  o'clock yesterday. : Dün saat 'te kitap okuyordu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am going to visit my grandmother tomorrow. : Yarın büyükannemi ziyaret edeceğim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Are you going to buy a new car? : Yeni bir araba alacak mısın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Look at those clouds"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have never been to Italy. : İtalya'da hiç bulunmadım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Have you ever eaten sushi? : Hiç suşi yedin mi?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have just finished my homework. : Ödevimi henüz bitirdim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She has lived here for ten years. : O"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t We haven't seen him since Monday. : Pazartesiden beri onu görmedik."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have to wake up early tomorrow. : Yarın erken uyanmak zorundayım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t You don't have to pay for this. : Bunun için ödeme yapmak zorunda değilsin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t You should see a doctor. : Bir doktora görünmelisin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t He shouldn't eat too much sugar. : O çok fazla şeker yememeli."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can you tell me the way to the station? : Bana istasyona giden yolu tarif edebilir misiniz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Could you please open the door? : Kapıyı açabilir misiniz lütfen? (Kibar)"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Would you like some tea? : Biraz çay ister misiniz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I would like to book a room. : Bir oda ayırtmak istiyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Let's go for a walk. : Haydi yürüyüşe çıkalım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Shall we meet at the cafe? : Kafede buluşalım mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t How about going to the cinema? : Sinemaya gitmeye ne dersin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Why don't we eat pizza tonight? : Bu akşam neden pizza yemiyoruz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t This shirt is bigger than that one. : Bu gömlek şundan daha büyük."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She is the smartest student in the class. : O"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t My car is more expensive than yours. : Benim arabam seninkinden daha pahalı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t This is the most boring film I have ever watched. : Bu"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t He drives carefully. : O dikkatli araba kullanır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She sings beautifully. : O güzel şarkı söyler."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Please speak quietly. : Lütfen sessiz konuşun."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am interested in history. : Tarihe ilgim var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She is afraid of spiders. : O örümceklerden korkar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am good at math. : Matematikte iyiyimdir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t He is bad at cooking. : O yemek pişirmede kötüdür."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t The fridge is full of food. : Buzdolabı yiyecek dolu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t This bag belongs to me. : Bu çanta bana ait."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Who does this pen belong to? : Bu kalem kime ait?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I agree with you. : Sana katılıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I don't think so. : Öyle düşünmüyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Maybe you are right. : Belki de haklısın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I hope the weather will be nice. : Umarım hava güzel olur."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t If it snows"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t If you don't hurry"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t When I arrive home"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t While I was running"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Is there anything else? : Başka bir şey var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Here is your change. : İşte para üstünüz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Keep the change. : Üstü kalsın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I tried on the shoes but they didn't fit. : Ayakkabıları denedim ama olmadı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What size do you wear? : Kaç beden giyiyorsunuz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It fits you perfectly. : Sana tam uydu (kıyafet)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have a headache. : Başım ağrıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t My stomach hurts. : Midem ağrıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I feel dizzy. : Başım dönüyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t You look pale. : Solgun görünüyorsun."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Take this medicine three times a day. : Bu ilacı günde üç kez al."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Excuse me"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am looking for a gift for my mother. : Annem için bir hediye arıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Do you accept credit cards? : Kredi kartı kabul ediyor musunuz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I'm just looking"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What kind of music do you like? : Ne tür müzikten hoşlanırsın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I prefer tea to coffee. : Çayı kahveye tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t My favorite hobby is taking photos. : En sevdiğim hobim fotoğraf çekmektir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It takes 0 minutes to walk there. : Oraya yürümek 0 dakika sürer."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t How far is it from here? : Buradan ne kadar uzakta?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It is quite close. : Oldukça yakın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Go past the supermarket. : Süpermarketi geç."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Cross the street. : Caddeden karşıya geç."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It is on the corner. : Köşede."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What is the weather like? : Hava nasıl?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It is sunny and warm. : Hava güneşli ve ılık."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It is freezing outside. : Dışarısı dondurucu soğuk."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Don't forget to take your umbrella. : Şemsiyeni almayı unutma."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Someone is knocking on the door. : Birisi kapıyı çalıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Nobody knows the answer. : Cevabı kimse bilmiyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Everybody is waiting for you. : Herkes seni bekliyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have something to tell you. : Sana söyleyecek bir şeyim var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Is there anywhere to park? : Park edecek bir yer var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I need to charge my phone. : Telefonumu şarj etmem lazım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t My battery is low. : Şarjım az."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can I use your Wi-Fi? : Wi-Fi'nizi kullanabilir miyim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What is the password? : Şifre nedir?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Please turn off the lights. : Lütfen ışıkları kapat."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can you turn down the music? : Müziğin sesini kısabilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I made a mistake. : Bir hata yaptım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It doesn't matter. : Önemli değil / Fark etmez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Don't worry about it. : Bunun hakkında endişelenme."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Congratulations on your new job! : Yeni işin için tebrikler!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Happy birthday! : Doğum günün kutlu olsun!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Get well soon. : Geçmiş olsun."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Have a nice trip. : İyi yolculuklar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Good luck! : İyi şanslar!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am really sorry. : Gerçekten üzgünüm."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t That sounds great. : Kulağa harika geliyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What's wrong? : Sorun nedir?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Are you kidding? : Şaka mı yapıyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have no idea. : Hiçbir fikrim yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t See you next week. : Haftaya görüşürüz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I checked my emails this morning. : Bu sabah e-postalarımı kontrol ettim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Did you lock the door before leaving? : Çıkmadan önce kapıyı kilitledin mi?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I didn't like the food at the restaurant. : Restorandaki yemeği beğenmedim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Where were you last night? : Dün gece neredeydin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t We went to the beach last summer. : Geçen yaz plaja gittik."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t He fell asleep while watching TV. : Televizyon izlerken uyuyakaldı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I was cooking when the guests arrived. : Misafirler geldiğinde yemek pişiriyordum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What were you doing at 0 o'clock? : Saat 0'da ne yapıyordun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am going to start a new diet. : Yeni bir diyete başlayacağım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t They are going to move to another city. : Başka bir şehre taşınacaklar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Are you going to join us? : Bize katılacak mısın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I think he will win the race. : Bence yarışı o kazanacak."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I promise I won't tell anyone. : Söz veriyorum kimseye söylemeyeceğim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Will you marry me? : Benimle evlenir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have lived in this house since 0 : 00'dan beri bu evde yaşıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Have you seen my glasses? : Gözlüklerimi gördün mü?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I haven't finished my coffee yet. : Kahvemi henüz bitirmedim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She has already done her homework. : Ödevini çoktan yaptı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Have you ever met a famous person? : Hiç ünlü biriyle tanıştın mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have never flown in a helicopter. : Hiç helikopterle uçmadım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t You must follow the rules. : Kurallara uymalısın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t We must protect the environment. : Çevreyi korumalıyız."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Students mustn't use mobile phones in class. : Öğrenciler sınıfta cep telefonu kullanmamalı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t You should brush your teeth twice a day. : Günde iki kez dişlerini fırçalamalısın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I shouldn't drink too much coffee. : Çok fazla kahve içmemeliyim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can I ask you a question? : Sana bir soru sorabilir miyim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Could you speak slower"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t May I sit here? : Buraya oturabilir miyim? (Resmi)"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I used to have long hair. : Eskiden uzun saçlarım vardı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Did you use to wear glasses? : Eskiden gözlük takar mıydın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t My brother is older than me. : Erkek kardeşim benden daha büyük."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Summer is hotter than winter. : Yaz kıştan daha sıcaktır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t English is easier than Chinese. : İngilizce Çinceden daha kolaydır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Who is the richest person in the world? : Dünyadaki en zengin kişi kim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t This is the best pizza in town. : Bu şehirdeki en iyi pizza."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Mount Everest is the highest mountain. : Everest Dağı en yüksek dağdır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Is your bag heavy? : Çantan ağır mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t This question is too difficult for me. : Bu soru benim için çok zor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t The soup is not hot enough. : Çorba yeterince sıcak değil."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t There are too many cars on the road. : Yolda çok fazla araba var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I don't have enough time. : Yeterince vaktim yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Something is wrong with my computer. : Bilgisayarımda bir sorun var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Everything is going to be alright. : Her şey yoluna girecek."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Is there anyone in the room? : Odada kimse var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I want to go somewhere quiet. : Sessiz bir yere gitmek istiyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Nothing can change my mind. : Hiçbir şey fikrimi değiştiremez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t If you are hungry"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t If I have time"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t If she invites me"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t When I grow up"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Please take off your shoes. : Lütfen ayakkabılarını çıkar."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Put on your jacket"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t The plane takes off at  PM. : Uçak akşam 'da kalkıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I get up at  o'clock every morning. : Her sabah saat 'de kalkarım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Don't give up! : Vazgeçme!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Turn on the TV"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am looking for my keys. : Anahtarlarımı arıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can I try this shirt on? : Bu gömleği deneyebilir miyim?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Fill in this form"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I ran out of money. : Param bitti."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t How long does it take to go to work? : İşe gitmek ne kadar sürer?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It takes 0 minutes by bus. : Otobüsle 0 dakika sürer."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t How far is the airport? : Havaalanı ne kadar uzaklıkta?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It is about 0 kilometers away. : Yaklaşık 0 kilometre uzakta."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Which one do you prefer? : Hangisini tercih edersin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I prefer staying home to going out. : Evde kalmayı dışarı çıkmaya tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Would you like to dance? : Dans etmek ister misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I'd love to"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I'm sorry"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Why are you laughing? : Neden gülüyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What is the matter with you? : Neyin var? (Sorun nedir?)"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am worried about the exam. : Sınav hakkında endişeliyim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She is excited about the holiday. : Tatil için heyecanlı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am bored with this movie. : Bu filmden sıkıldım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Are you interested in sports? : Sporla ilgileniyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t He is famous for his songs. : O şarkılarıyla ünlüdür."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t This box is full of toys. : Bu kutu oyuncaklarla dolu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I am waiting for a friend. : Bir arkadaşımı bekliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Who are you talking to? : Kiminle konuşuyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t What are you listening to? : Ne dinliyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t The cat jumped off the wall. : Kedi duvardan atladı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Walk across the bridge. : Köprüden karşıya geç."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Go through the tunnel. : Tünelin içinden geç."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t The bank is opposite the supermarket. : Banka süpermarketin karşısında."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t My house is between the park and the school. : Evim park ile okulun arasında."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I have a toothache. : Dişim ağrıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t She has a sore throat. : Onun boğazı ağrıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I need to see a dentist. : Bir dişçiye görünmem lazım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Call an ambulance! : Ambulans çağırın!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Be careful! : Dikkatli ol!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Watch out! : Dikkat et! (Tehlike anında)"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Have a good weekend. : İyi hafta sonları."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Enjoy your meal. : Afiyet olsun."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Same to you. : Sana da / Size de."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t It doesn't work. : Bu çalışmıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t The Wi-Fi is very slow. : Wi-Fi çok yavaş."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can you fix this? : Bunu tamir edebilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t I lost my passport. : Pasaportumu kaybettim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Can you recommend a good hotel? : İyi bir otel tavsiye edebilir misiniz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "A2\t:\t Keep quiet"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I haven't seen you for ages. : Seni görmeyeli uzun zaman oldu (yıllar oldu)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t How long have you been learning English? : Ne kadar süredir İngilizce öğreniyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I have been waiting for the bus for 0 minutes. : 0 dakikadır otobüsü bekliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She has recently started a new job. : Son zamanlarda yeni bir işe başladı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Have you finished reading the report yet? : Raporu okumayı henüz bitirmedin mi?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I have already booked the flight tickets. : Uçak biletlerini çoktan ayırttım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t While I was driving"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t What were you doing when the earthquake happened? : Deprem olduğunda ne yapıyordun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I didn't use to like vegetables"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Did you use to play outside when you were a kid? : Çocukken dışarıda oynar mıydın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The phone is ringing; I'll answer it. : Telefon çalıyor; ben bakarım (anlık karar)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I promise I won't be late again. : Söz veriyorum bir daha geç kalmayacağım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Look at the traffic; we are going to be late. : Trafiğe bak; geç kalacağız (kanıtlı tahmin)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am meeting my friends tonight. : Bu akşam arkadaşlarımla buluşuyorum (planlanmış eylem)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t What are your plans for the summer holiday? : Yaz tatili için planların neler?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t If I have enough money"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t If the weather is nice"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t If I were rich"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t If I had a car"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t What would you do if you lost your wallet? : Cüzdanını kaybetseydin ne yapardın?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t This email must be sent immediately. : Bu e-posta derhal gönderilmeli (Passive)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The room is cleaned every day. : Oda her gün temizlenir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The bridge was built in  : Köprü 0'da inşa edildi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t When was the telephone invented? : Telefon ne zaman icat edildi?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t My bike has been stolen. : Bisikletim çalındı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He told me that he was busy. : Bana meşgul olduğunu söyledi (Reported Speech)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She asked me where I lived. : Bana nerede yaşadığımı sordu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t They said they would come later. : Daha sonra geleceklerini söylediler."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I realized that I had forgotten my passport. : Pasaportumu unuttuğumu fark ettim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You don't have to wear a uniform here. : Burada üniforma giymek zorunda değilsin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You mustn't smoke in the hospital. : Hastanede sigara içmemelisin (yasak)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t We ought to respect elderly people. : Yaşlı insanlara saygı göstermeliyiz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It might be true. : Doğru olabilir (olasılık)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She can't be at home; I saw her outside. : Evde olamaz; onu dışarıda gördüm."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He must be very tired after the journey. : Yolculuktan sonra çok yorgun olmalı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Do you know the man who is talking to Alice? : Alice ile konuşan adamı tanıyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t This is the restaurant which serves Italian food. : İtalyan yemekleri servis eden restoran burası."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I remember the day when we met. : Tanıştığımız günü hatırlıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Is there a place where we can park? : Park edebileceğimiz bir yer var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The girl whose bag was stolen is crying. : Çantası çalınan kız ağlıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I enjoy listening to jazz music. : Caz müzik dinlemekten keyif alırım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I avoid eating junk food. : Abur cubur yemekten kaçınırım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Have you finished writing the report? : Raporu yazmayı bitirdin mi?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He promised to help me. : Bana yardım edeceğine söz verdi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I decided to study abroad. : Yurt dışında okumaya karar verdim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Don't forget to turn off the lights. : Işıkları kapatmayı unutma."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is difficult to learn a new language. : Yeni bir dil öğrenmek zordur."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am interested in learning history. : Tarih öğrenmeye ilgim var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She is good at playing tennis. : Tenis oynamada iyidir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Thank you for inviting me. : Beni davet ettiğin için teşekkür ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am sorry for being late. : Geç kaldığım için özür dilerim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t However"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Although he is old"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Since you are busy"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Therefore"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t In addition"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t On the one hand... on the other hand... : Bir yandan... diğer yandan..."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Unless you hurry"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t As soon as I get home"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Wait here until I come back. : Ben dönene kadar burada bekle."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Could you please fill out this form? : Lütfen bu formu doldurabilir misiniz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I need to find out the truth. : Gerçeği öğrenmem (ortaya çıkarmam) lazım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t We should carry on working. : Çalışmaya devam etmeliyiz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The plane took off on time. : Uçak zamanında kalktı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t My car broke down yesterday. : Arabam dün bozuldu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I grew up in a small village. : Küçük bir köyde büyüdüm."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Who looks after the children? : Çocuklara kim bakıyor (ilgileniyor)?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I get on well with my colleagues. : İş arkadaşlarımla iyi geçinirim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Please turn down the music. : Lütfen müziğin sesini kıs."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Don't give up on your dreams. : Hayallerinden vazgeçme."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I feel like eating pizza tonight. : Canım bu akşam pizza yemek istiyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t How about going for a walk? : Yürüyüşe çıkmaya ne dersin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Why don't we have a break? : Neden bir mola vermiyoruz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t That sounds like a good plan. : Kulağa iyi bir plan gibi geliyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am not sure about that. : Ondan emin değilim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Could you do me a favor? : Bana bir iyilik yapabilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Would you mind opening the window? : Pencereyi açmanızın bir sakıncası var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am afraid I can't help you. : Korkarım size yardım edemem."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It doesn't matter to me. : Benim için fark etmez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Whatever you want. : Ne istersen."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The movie was so boring that I fell asleep. : Film o kadar sıkıcıydı ki uyuyakaldım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It was such a beautiful day that we went out. : O kadar güzel bir gündü ki dışarı çıktık."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You look tired; you should rest. : Yorgun görünüyorsun; dinlenmelisin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t This soup tastes a bit salty. : Bu çorbanın tadı biraz tuzlu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The situation seems complicated. : Durum karmaşık görünüyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Generally speaking"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Personally"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t According to the weather forecast"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t In my opinion"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t From my point of view"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Could you tell me where the station is? : İstasyonun nerede olduğunu söyleyebilir misiniz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Do you know what time the bank opens? : Bankanın kaçta açıldığını biliyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I wonder if she will come. : Gelip gelmeyeceğini merak ediyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I have no idea where he is. : Nerede olduğuna dair hiçbir fikrim yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Make sure you have your passport. : Pasaportunun yanında olduğundan emin ol."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is likely to snow tonight. : Bu gece kar yağması muhtemel."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t There is no need to worry. : Endişelenmeye gerek yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is worth trying. : Denemeye değer."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I can't afford to buy a new car. : Yeni bir araba almaya maddi gücüm yetmez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Let me know if you need anything. : Bir şeye ihtiyacın olursa bana haber ver."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t If I were you"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I have been working here for ten years. : On yıldır burada çalışıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I used to live in London"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The car was repaired by the mechanic. : Araba tamirci tarafından tamir edildi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He said that he was tired. : Yorgun olduğunu söyledi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I look forward to hearing from you soon. : Yakında sizden haber almayı dört gözle bekliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It takes about two hours to get to the airport. : Havaalanına gitmek yaklaşık iki saat sürer."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Neither Jack nor Tom came to the party. : Ne Jack ne de Tom partiye geldi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Either you apologize or I will leave. : Ya özür dilersin ya da ben giderim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I was able to solve the problem eventually. : Sonunda sorunu çözmeyi başardım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You should have told me the truth. : Bana doğruyu söylemeliydin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I must have left my keys at home. : Anahtarlarımı evde unutmuş olmalıyım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Unless you study hard"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t While I was walking down the street"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Although it was cold"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I have just finished reading the book you gave me. : Bana verdiğin kitabı okumayı henüz bitirdim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t This is the best movie I have ever seen. : Bu hayatımda izlediğim en iyi film."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Do you know where the post office is? : Postanenin nerede olduğunu biliyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She asked me if I was married. : Bana evli olup olmadığımı sordu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I prefer walking to driving. : Yürümeyi araba sürmeye tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is too hot to go outside. : Dışarı çıkmak için hava çok sıcak."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He is strong enough to lift this box. : Bu kutuyu kaldıracak kadar güçlü."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The problem is that we don't have enough money. : Sorun şu ki yeterli paramız yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am thinking of buying a new computer. : Yeni bir bilgisayar almayı düşünüyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Would you mind closing the window? : Pencereyi kapatmanızın bir sakıncası var mı?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I stopped smoking two years ago. : Sigara içmeyi iki yıl önce bıraktım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She stopped to answer the phone. : Telefona cevap vermek için durdu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The man who is wearing a blue shirt is my uncle. : Mavi gömlek giyen adam benim amcam."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t This is the house where I was born. : Bu benim doğduğum ev."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I don't know what to do. : Ne yapacağımı bilmiyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Can you tell me how this machine works? : Bu makinenin nasıl çalıştığını bana anlatabilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Make sure you lock the door before you leave. : Çıkmadan önce kapıyı kilitlediğinden emin ol."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It's no use worrying about the past. : Geçmiş hakkında endişelenmenin bir faydası yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I would rather stay home than go out. : Dışarı çıkmaktansa evde kalmayı tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You had better see a doctor. : Bir doktora görünsen iyi edersin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is likely to rain tomorrow. : Yarın yağmur yağması muhtemel."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am not used to driving on the left. : Soldan araba sürmeye alışkın değilim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He is getting used to his new job. : Yeni işine alışıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t By the time we arrived"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I wish I had a bigger house. : Keşke daha büyük bir evim olsaydı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t If I had known"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The cake was made by my mother. : Kek annem tarafından yapıldı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t English is spoken all over the world. : İngilizce tüm dünyada konuşulur."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t We are having the house painted. : Evi boyatıyoruz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I got my hair cut yesterday. : Dün saçımı kestirdim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He is said to be very rich. : Onun çok zengin olduğu söyleniyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I made him apologize. : Ona özür dilettim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She let me use her car. : Arabasını kullanmama izin verdi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You are not allowed to smoke here. : Burada sigara içmenize izin verilmez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Despite the rain"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t In spite of feeling sick"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t However"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Therefore"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Since you are here"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t As soon as I arrive"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Keep on trying until you succeed. : Başarana kadar denemeye devam et."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I ran out of sugar. : Şekerim bitti (tükendi)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t We need to cut down on expenses. : Masrafları kısmamız gerekiyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Can you look after my cat while I am away? : Ben yokken kedime bakabilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I give up trying to explain. : Açıklamaya çalışmaktan vazgeçiyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He turned down the job offer. : İş teklifini geri çevirdi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Please turn on the light. : Lütfen ışığı aç."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t The plane took off on time. : Uçak zamanında kalktı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I get along well with my neighbors. : Komşularımla iyi geçinirim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am looking forward to the holiday. : Tatili dört gözle bekliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It depends on the weather. : Havaya bağlı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am proud of you. : Seninle gurur duyuyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He is responsible for the sales department. : Satış departmanından o sorumludur."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t She is interested in learning French. : Fransızca öğrenmeye ilgisi var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I am fed up with this traffic. : Bu trafikten bıktım usandım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t According to the news"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t In my opinion"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Personally"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Why don't we go out for dinner? : Neden akşam yemeği için dışarı çıkmıyoruz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t How about watching a movie? : Film izlemeye ne dersin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You look like your mother. : Annene benziyorsun."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It smells like fresh bread. : Taze ekmek gibi kokuyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t This soup tastes delicious. : Bu çorbanın tadı lezzetli."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I feel as if I am flying. : Sanki uçuyormuşum gibi hissediyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He behaves as though he knows everything. : Sanki her şeyi biliyormuş gibi davranıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t So do I. : Ben de öyle. (Olumlu cümleye katılma)"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Neither do I. : Ben de öyle değil. (Olumsuz cümleye katılma)"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I think so. : Sanırım öyle."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I don't think so. : Sanırım öyle değil."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I hope so. : Umarım öyledir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I'm afraid I can't come. : Korkarım ki gelemem."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Could you do me a favor? : Bana bir iyilik yapabilir misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Would you be so kind as to help me? : Bana yardım etme nezaketinde bulunur musunuz?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is essential to drink water. : Su içmek esastır (çok önemlidir)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is forbidden to park here. : Buraya park etmek yasaktır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t There is no point in arguing. : Tartışmanın bir anlamı yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It is worth seeing. : Görmeye değer."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I can't help laughing. : Gülmekten kendimi alamıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t I have trouble sleeping. : Uyumakta güçlük çekiyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t Do you fancy going for a walk? : Yürüyüşe çıkmak ister misin?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t It seems that he is unhappy. : Görünüşe göre o mutsuz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t You seem to be tired. : Yorgun görünüyorsun."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t He happened to be there. : Tesadüfen oradaydı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t To tell you the truth"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B1\t:\t By the way"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I would rather you didn't smoke in the house. : Evde sigara içmemeni tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t It is high time we went home. : Eve gitme vaktimiz geldi de geçiyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t If I were in your shoes"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I wish I hadn't spent so much money. : Keşke bu kadar çok para harcamasaydım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t You should have called me before you came. : Gelmeden önce beni aramalıydın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He must have missed the bus. : Otobüsü kaçırmış olmalı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t They can't have arrived yet; it's too early. : Henüz varmış olamazlar; saat çok erken."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Needles to say"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t No matter how hard I try"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t As far as I'm concerned"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t It is said that the company is bankrupt. : Şirketin iflas ettiği söyleniyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t She is believed to be living in New York. : Onun New York'ta yaşadığına inanılıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t By this time next year"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I will be working at  o'clock tomorrow morning. : Yarın sabah saat 'da çalışıyor olacağım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Despite being tired"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t In spite of the heavy rain"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Even though I like him"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t While I understand your point"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Provided that you pay me back"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Unless you have a ticket"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t The meeting was called off due to the storm. : Fırtına nedeniyle toplantı iptal edildi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I ran into an old friend yesterday. : Dün eski bir arkadaşıma rastladım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t We need to come up with a new plan. : Yeni bir plan bulmalıyız (üretmeliyiz)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I can't put up with his behavior anymore. : Artık onun davranışlarına katlanamıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Please look after my dog while I'm away. : Ben yokken lütfen köpeğime göz kulak ol."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He looks down on people who are poor. : Fakir insanları hor görür (tepeden bakar)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I look up to my father. : Babama hayranlık duyarım (örnek alırım)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t We have run out of coffee. : Kahvemiz tükendi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t The car broke down in the middle of the road. : Araba yolun ortasında bozuldu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t They called off the wedding at the last minute. : Düğünü son dakikada iptal ettiler."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I regret telling him the secret. : Ona sırrı söylediğime pişmanım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I regret to inform you that you failed. : Başarısız olduğunuzu bildirmekten üzüntü duyarım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I remember locking the door. : Kapıyı kilitlediğimi hatırlıyorum (eylemi yaptım)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Please remember to lock the door. : Lütfen kapıyı kilitlemeyi hatırla (unutma)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He stopped smoking last year. : Geçen yıl sigarayı bıraktı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He stopped to smoke a cigarette. : Sigara içmek için durdu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Try to be quiet"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Try restarting the computer. : Bilgisayarı yeniden başlatmayı dene (bir yöntem olarak)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t It's no use crying over spilt milk. : Olanla ölene çare yok (dökülen süt için ağlamanın faydası yok)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t There is no point in arguing with him. : Onunla tartışmanın bir anlamı yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t It is worth visiting the museum. : Müzeyi ziyaret etmeye değer."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I'm looking forward to going on holiday. : Tatile çıkmayı dört gözle bekliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I am used to getting up early. : Erken kalkmaya alışkınım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I am getting used to living alone. : Yalnız yaşamaya alışıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He denied stealing the money. : Parayı çaldığını inkar etti."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t She admitted making a mistake. : Hata yaptığını kabul etti."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I refuse to accept this excuse. : Bu mazereti kabul etmeyi reddediyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He threatened to call the police. : Polisi aramakla tehdit etti."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t She suggested going to the cinema. : Sinemaya gitmeyi önerdi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I apologize for being late. : Geç kaldığım için özür dilerim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He is accused of robbing the bank. : Bankayı soymakla suçlanıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t She is good at influencing people. : İnsanları etkilemekte iyidir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I am thinking of moving to another city. : Başka bir şehre taşınmayı düşünüyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t What are you thinking about? : Ne hakkında düşünüyorsun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t The reason why I came is to see you. : Gelmemin sebebi seni görmek."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t That is the man whose car was stolen. : Arabası çalınan adam şu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t The hotel where we stayed was luxurious. : Kaldığımız otel lükstü."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Do you know the reason why she left? : Neden gittiğini biliyor musun?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I had my hair cut yesterday. : Dün saçımı kestirdim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t We are having our house painted. : Evimizi boyatıyoruz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I will get the mechanic to fix the car. : Arabayı tamirciye tamir ettireceğim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t She made me wash the dishes. : Bana bulaşıkları yıkattı (zorla)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Let me help you with your bags. : Çantalarına yardım etmeme izin ver."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Not only is he rich"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Neither the manager nor the employees were there. : Ne müdür ne de çalışanlar oradaydı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Either you finish the project or you leave. : Ya projeyi bitirirsin ya da gidersin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Both my brother and I like football. : Hem kardeşim hem de ben futbolu severiz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t It seems as if it is going to rain. : Görünüşe göre yağmur yağacak."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He acts as though he owns the place. : Mekanın sahibiymiş gibi davranıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I would sooner you didn't tell anyone. : Kimseye söylememeni tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Had I known"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Should you need help"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Were I you"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t The more you practice"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t The sooner"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t It is vital that he be present. : Onun orada bulunması hayati önem taşır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I insist that she come with us. : Bizimle gelmesi konusunda ısrar ediyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Take an umbrella in case it rains. : Yağmur yağar diye (ne olur ne olmaz) şemsiye al."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t I wrote it down so that I wouldn't forget. : Unutmayayım diye not ettim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t He studied hard in order to pass the exam. : Sınavı geçmek amacıyla sıkı çalıştı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Apart from the weather"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t In addition to being intelligent"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Due to the traffic"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Thanks to your help"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Instead of complaining"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t On behalf of the team"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t By the way"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t To tell the truth"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Generally speaking"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t In other words"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t As a result"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Consequently"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Furthermore"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t However"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t On the other hand"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t In conclusion"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Bear in mind that it takes time. : Zaman alacağını aklında bulundur."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Make up your mind. : Kararını ver."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Get rid of that old chair. : Şu eski sandalyeden kurtul."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "B2\t:\t Keep in touch. : İrtibatta kalalım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Not only is he a brilliant scientist"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t No sooner had I arrived home than the phone rang. : Eve varır varmaz (tam varmıştım ki) telefon çaldı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Hardly had we started the meeting when the electricity went off. : Toplantıya henüz başlamıştık ki elektrikler kesildi."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Little did I know that this decision would change my life. : Bu kararın hayatımı değiştireceğinden hiç haberim yoktu (nereden bilebilirdim ki)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Seldom do I complain about the workload. : İş yükü hakkında nadiren şikayet ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Under no circumstances should you open this door. : Hiçbir koşulda bu kapıyı açmamalısınız."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Never have I seen such a beautiful sunset. : Hayatımda (daha önce) hiç bu kadar güzel bir gün batımı görmedim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Rarely does he visit his hometown these days. : Bugünlerde memleketini nadiren ziyaret ediyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Had I known you were waiting"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Should you require further information"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Were I to accept the offer"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t But for your help"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It is essential that he be informed immediately. : Onun derhal bilgilendirilmesi şarttır (esaslıdır)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t I suggest that she consult a lawyer. : Bir avukata danışmasını öneririm."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It is high time we addressed this problem. : Bu sorunu ele almamızın vakti geldi de geçiyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t I would rather you didn't mention this to anyone. : Bunu kimseye bahsetmemeni tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t What I really need is a long holiday. : Gerçekten ihtiyacım olan şey uzun bir tatil."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It was John who broke the vase"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t All I want is a little bit of peace and quiet. : Tek istediğim biraz huzur ve sessizlik."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t The reason why I am calling is to discuss the contract. : Aramamın sebebi sözleşmeyi görüşmek."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Having finished his homework"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Seen from a distance"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Being a doctor"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Not knowing what to say"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Shocked by the news"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It is widely believed that the economy will recover soon. : Ekonominin yakında düzeleceğine yaygın olarak inanılıyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t He is rumored to have resigned. : İstifa ettiği söyleniyor (söylentisi var)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t The thieves are thought to be hiding in the forest. : Hırsızların ormanda saklandığı düşünülüyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t I resent being treated like a child. : Bana çocuk gibi davranılmasına içerliyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t He objected to paying the extra charge. : Ekstra ücret ödemeye itiraz etti."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t I am accustomed to working long hours. : Uzun saatler çalışmaya alışkınım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t She is dedicated to helping the poor. : Kendini fakirlere yardım etmeye adamıştır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t We are committed to providing the best service. : En iyi hizmeti sağlamaya kararlıyız."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It's no use trying to persuade him; he is very stubborn. : Onu ikna etmeye çalışmanın bir faydası yok; çok inatçıdır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t There is no point in waiting any longer. : Daha fazla beklemenin bir anlamı yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It is worth mentioning that the deadline is tomorrow. : Son teslim tarihinin yarın olduğunu belirtmekte fayda var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t I can't help wondering what happened to him. : Ona ne olduğunu merak etmekten kendimi alamıyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t He is bound to win the election. : Seçimi kazanması kesin (kaçınılmaz)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t She is likely to accept the invitation. : Daveti kabul etmesi muhtemel."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t We are on the verge of a breakthrough. : Bir dönüm noktasının (büyük buluşun) eşiğindeyiz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t He is about to leave"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Due to the fact that it was raining"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t In view of the recent events"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t With a view to expanding the business"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Contrary to popular belief"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Unlike his brother"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Much as I respect him"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Strange as it may seem"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Hard as she tried"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Regardless of the cost"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Irrespective of your opinion"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Assuming that the flight is on time"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Suppose (that) you won the lottery"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Provided that you promise to be careful"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Unless measures are taken"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t In the event of a fire"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t For fear of waking the baby"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Lest you should forget"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Not strictly speaking legal"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Broadly speaking"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t To cut a long story short"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t By and large"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t On the whole"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Taking everything into consideration"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Last but not least"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Furthermore"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Moreover"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Consequently"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Nevertheless"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Conversely"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t On the contrary"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It stands to reason that he would be upset. : Üzgün olması gayet mantıklı (akla yatkın)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It goes without saying that health is wealth. : Sağlığın en büyük zenginlik olduğu tartışılmaz bir gerçektir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Suffice it to say"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Let's get down to business. : Sadede gelelim (işimize bakalım)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t We need to face the music. : Yaptığımızın sonucuna katlanmalıyız (gerçeklerle yüzleşmeliyiz)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Don't beat around the bush. : Lafı dolandırma."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t You hit the nail on the head. : Tam üstüne bastın (taşı gediğine koydun)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t I am sitting on the fence regarding this issue. : Bu konuda kararsızım (taraf seçmedim)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t He let the cat out of the bag. : Ağzından baklayı çıkardı (sırrı ifşa etti)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t We see eye to eye on most things. : Çoğu konuda hemfikiriz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t It's a piece of cake. : Çocuk oyuncağı (çok kolay)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Break a leg! : Şeytanın bacağını kır (iyi şanslar)!"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Don't judge a book by its cover. : Kimseyi dış görünüşüne göre yargılama."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Better late than never. : Geç olsun güç olmasın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Actions speak louder than words. : Ayinesi iştir kişinin lafa bakılmaz (Eylemler sözlerden daha yüksek sesle konuşur)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Every cloud has a silver lining. : Her şerde bir hayır vardır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Curiosity killed the cat. : Fazla merak kediyi öldürür (insanın başına dert açar)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Don't put all your eggs in one basket. : Tüm yumurtaları aynı sepete koyma (riskini dağıt)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Make hay while the sun shines. : Fırsat varken değerlendir (Demir tavında dövülür)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t There is no accounting for taste. : Zevkler ve renkler tartışılmaz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t When in Rome"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t The early bird catches the worm. : Erken kalkan yol alır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t A penny for your thoughts. : Ne düşünüyorsun (Dalgın görünüyorsun)?"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Don't bite off more than you can chew. : Boyundan büyük işlere kalkışma."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Ignorance is bliss. : Cehalet mutluluktur (Bilmemek bazen iyidir)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Kill two birds with one stone. : Bir taşla iki kuş vurmak."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Let sleeping dogs lie. : Belayı uyandırma (Geçmiş sorunları kurcalama)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t Miss the boat. : Fırsatı kaçırmak."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C1\t:\t The ball is in your court. : Top sende (Sıra/karar sende)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Be that as it may"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It is incumbent upon us to take immediate action. : Derhal harekete geçmek bizim için bir zorunluluktur (üzerimize vazifedir)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Little did he know that his remarks would spark a controversy. : Sözlerinin bir tartışma başlatacağından haberi yoktu (nereden bilebilirdi ki)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Had it not been for your timely intervention"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Rarely have I encountered such a profound lack of empathy. : Böylesine derin bir empati yoksunluğuyla nadiren karşılaştım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Under no circumstances are you to reveal the source of this information. : Bu bilginin kaynağını hiçbir koşulda ifşa etmemelisiniz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Whatever the outcome may be"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Should you happen to see him"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Were it not for the fact that he is my brother"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Only by working together can we overcome these hurdles. : Bu engelleri ancak birlikte çalışarak aşabiliriz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Not until the very end did I realize who the killer was. : Katilin kim olduğunu ancak en sonunda (iş işten geçince) anladım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Such was the force of the explosion that windows shattered miles away. : Patlamanın şiddeti o kadar büyüktü ki miller ötedeki camlar tuzla buz oldu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t So intense was the heat that we had to evacuate the building. : Sıcaklık o kadar yoğundu ki binayı tahliye etmek zorunda kaldık."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Try as he might"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Much as I admire his work"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Strange though it may seem"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Albeit late"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t He is"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Suffice it to say that the negotiations were successful. : Müzakerelerin başarılı olduğunu söylemek yeterli (kısaca başarılıydı)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It stands to reason that better education leads to lower crime rates. : Daha iyi eğitimin daha düşük suç oranlarına yol açması mantıklıdır (akla yatkındır)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I take it for granted that you have read the report. : Raporu okuduğunuzu varsayıyorum (garanti görüyorum)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t The government is ostensibly committed to reform. : Hükümet görünüşte reforma bağlıdır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Presumably"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t In all likelihood"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t To all intents and purposes"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t By and large"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Given the circumstances"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Assuming"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t With the benefit of hindsight"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Let's not jump the gun; we need more data. : Acele etmeyelim (erken davranmayalım); daha fazla veriye ihtiyacımız var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t We must leave no stone unturned in our search for the truth. : Gerçeği ararken bakılmadık taş bırakmamalıyız."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It is a double-edged sword; it has both pros and cons. : Bu iki ucu keskin bir kılıçtır; hem artıları hem eksileri var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t He is sitting on the fence and refuses to take sides. : Kararsız kalıyor (çitin üzerinde oturuyor) ve taraf tutmayı reddediyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Don't beat about the bush; get to the point. : Lafı dolandırma; sadede gel."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It was the last straw that broke the camel's back. : Bu"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t He threw caution to the wind and invested all his money. : Tedbiri elden bıraktı ve tüm parasını yatırdı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t We are caught between a rock and a hard place. : Aşağı tükürsen sakal"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Let's call a spade a spade; he is incompetent. : Eğri oturup doğru konuşalım (adını koyalım); o beceriksiz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t The project is still up in the air. : Proje hala havada (belirsiz)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t He has a chip on his shoulder about not going to university. : Üniversiteye gitmediği için kompleksi var (alınganlık gösteriyor)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Don't put all your eggs in one basket. : Tüm yumurtaları aynı sepete koyma (riskini dağıt)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t You can't judge a book by its cover. : Dış görünüşe aldanmamalısın."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It takes two to tango; both parties are to blame. : Tek taraflı olmaz; her iki taraf da suçludur (tango için iki kişi gerekir)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t When it comes to technology"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t As far as I can gather"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t To the best of my knowledge"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It is common knowledge that smoking causes cancer. : Sigaranın kansere yol açtığı herkesçe bilinen bir gerçektir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Contrary to popular belief"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Notwithstanding the difficulties"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Irrespective of the cost"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Regardless of what people say"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Owing to a lack of funds"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t In view of the gravity of the situation"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Unless and until you apologize"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Providing that you finish your work"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Suppose for a moment that money was no object. : Bir an için paranın sorun olmadığını (önemsiz olduğunu) varsayalım."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I would sooner die than betray my country. : Ülkeme ihanet etmektense ölmeyi tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I'd rather you didn't intervene in this matter. : Bu meseleye müdahale etmemeni tercih ederim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It is high time the government addressed the issue of poverty. : Hükümetin yoksulluk meselesini ele almasının vakti geldi de geçiyor."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Whatever you do"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t However hard he tries"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Whoever told you that was lying. : Onu sana kim söylediyse yalan söylüyordu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Whenever I hear that song"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Wherever you go"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I am of the opinion that we should wait. : Beklememiz gerektiği kanaatindeyim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I am under the impression that he is hiding something. : Bir şeyler sakladığı izlenimine sahibim."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It is my firm belief that justice will prevail. : Adaletin yerini bulacağına dair inancım tamdır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I have no doubt whatsoever about his integrity. : Dürüstlüğü konusunda en ufak bir şüphem yok."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t There is no denying that the climate is changing. : İklimin değiştiği inkar edilemez."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It goes without saying that you are welcome to stay. : Kalabileceğinizi söylememe bile gerek yok (tabii ki kalabilirsiniz)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It is universally acknowledged that education is a right. : Eğitimin bir hak olduğu evrensel olarak kabul edilir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Rumor has it that they are getting divorced. : Boşanacaklarına dair söylentiler var."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Word on the street is that the company is for sale. : Sokaktaki (halk arasındaki) söylentiye göre şirket satılık."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Let me play devil's advocate for a moment. : Bir anlığına şeytanın avukatlığını yapmama izin verin."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t We need to think outside the box. : Kalıpların dışında düşünmeliyiz (yaratıcı olmalıyız)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t It's not rocket science; it's just common sense. : Atla deve değil (roket bilimi değil); sadece sağduyu."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Don't burn your bridges; you might need them later. : Köprüleri yakma (ilişkileri atma); daha sonra onlara ihtiyacın olabilir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t He let the cat out of the bag about the surprise. : Sürprizle ilgili ağzından baklayı çıkardı."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t I'm feeling a bit under the weather today. : Bugün kendimi biraz keyifsiz (hasta gibi) hissediyorum."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Once in a blue moon"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t You are barking up the wrong tree. : Yanlış kapıyı çalıyorsun (yanlış kişiyi suçluyorsun)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t The ball is in your court now. : Top artık sende (sıra sende)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t We see eye to eye on most political issues. : Çoğu siyasi konuda hemfikiriz."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Don't count your chickens before they hatch. : Dereyi görmeden paçaları sıvama."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Every cloud has a silver lining. : Her şerde bir hayır vardır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t The pen is mightier than the sword. : Kalem kılıçtan keskindir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t When in Rome"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t The early bird catches the worm. : Erken kalkan yol alır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t A picture is worth a thousand words. : Bir resim bin söze bedeldir."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Beauty is in the eye of the beholder. : Güzellik bakanın gözündedir (görecelidir)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Necessity is the mother of invention. : İhtiyaç icadın anasıdır."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Familiarity breeds contempt. : Fazla samimiyet tez ayrılık getirir (saygınlığı azaltır)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Don't bite the hand that feeds you. : Yediğin kaba pisleme (seni besleyen eli ısırma)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Too many cooks spoil the broth. : Horozun çok olduğu yerde sabah geç olur (Nerede çokluk orada bokluk)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t You can lead a horse to water"
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Absence makes the heart grow fonder. : Ayrılık sevgiyi güçlendirir (Gözden ırak olan gönüle yakın olur)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t A bird in the hand is worth two in the bush. : Eldeki bir kuş daldaki iki kuştan iyidir (Dimyat'a pirince giderken evdeki bulgurdan olma)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t Rome wasn't built in a day. : Roma bir günde inşa edilmedi (Sabır gerekir)."
+  },
+  {
+    "Seviye : Kalıp Eng : Kalıp Tr": "C2\t:\t All good things must come to an end. : Her güzel şeyin bir sonu vardır."
+  }
+];
