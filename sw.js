@@ -1,11 +1,11 @@
 /* ============================================================
-   LinguiVance — Service Worker v1.0
+   EngWordMasters — Service Worker v1.0
    Offline-first caching strategy
    ============================================================ */
 
-const CACHE_NAME = 'linguivance-v10';
-const STATIC_CACHE = 'linguivance-static-v10';
-const DATA_CACHE = 'linguivance-data-v10';
+const CACHE_NAME = 'engwordmasters-v1';
+const STATIC_CACHE = 'engwordmasters-static-v1';
+const DATA_CACHE = 'engwordmasters-data-v1';
 
 // Core app shell — always cache these
 const APP_SHELL = [
@@ -13,7 +13,8 @@ const APP_SHELL = [
   './offline.html',
   './manifest.json',
   './kelimeler.js',
-  './reading.js',
+  './deyimler.js',
+  './kalıplar.js',
   './sinavlar.js',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png'
@@ -110,12 +111,12 @@ self.addEventListener('fetch', (event) => {
 // ── PUSH NOTIFICATIONS ────────────────────────────────────────
 self.addEventListener('push', (event) => {
   const data = event.data ? event.data.json() : {};
-  const title = data.title || 'LinguiVance';
+  const title = data.title || 'EngWordMasters';
   const options = {
     body: data.body || 'Time to practice your English! 📚',
     icon: './icons/icon-192x192.png',
     badge: './icons/icon-72x72.png',
-    tag: 'linguivance-reminder',
+    tag: 'engwordmasters-reminder',
     renotify: true,
     data: { url: data.url || './index.html' },
     actions: [
@@ -135,7 +136,7 @@ self.addEventListener('notificationclick', (event) => {
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
-        if (client.url.includes('linguivance') && 'focus' in client) {
+        if (client.url.includes('engwordmasters') && 'focus' in client) {
           return client.focus();
         }
       }

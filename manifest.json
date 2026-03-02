@@ -1,8 +1,8 @@
 {
-  "id": "/linguivance/",
-  "name": "LinguiVance — Learn English",
-  "short_name": "LinguiVance",
-  "description": "Learn English with smart flashcards, adaptive exams, and reading modules.",
+  "id": "/engwordmasters/",
+  "name": "EngWordMasters — İngilizce Öğren",
+  "short_name": "EngWordMasters",
+  "description": "Akıllı flashcard, quiz ve eşleştirme oyunlarıyla İngilizce kelime haznenizi geliştirin. A1'den C2'ye 11.000+ kelime.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -10,10 +10,9 @@
   "background_color": "#f8fafc",
   "theme_color": "#4ade80",
   "orientation": "portrait-primary",
-  "lang": "en",
+  "lang": "tr",
   "dir": "ltr",
   "categories": ["education", "utilities"],
-  "iarc_rating_id": "",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -64,33 +63,21 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "screenshots/home.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "LinguiVance Home Screen"
-    }
-  ],
   "shortcuts": [
     {
       "name": "Flashcards",
-      "short_name": "Cards",
-      "description": "Practice vocabulary with flashcards",
+      "short_name": "Kartlar",
+      "description": "Flashcard ile kelime çalış",
       "url": "./index.html#cards",
       "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Take Exam",
-      "short_name": "Exam",
-      "description": "Test your English level",
-      "url": "./index.html#exam",
+      "name": "Quiz",
+      "short_name": "Quiz",
+      "description": "Seviyeni test et",
+      "url": "./index.html#quiz",
       "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
-  "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 400
-  }
+  "prefer_related_applications": false
 }
